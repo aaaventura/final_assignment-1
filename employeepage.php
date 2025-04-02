@@ -72,6 +72,7 @@ function fileExtension($file){
 //gotta practice git now.
 // or whatever.
 //now I will make a slight change to this... 
+// so this is how I'll be doing my git from now on, I guess... yay
 
 
 // _POST all relevant data for processes.
