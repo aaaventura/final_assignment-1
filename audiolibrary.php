@@ -62,6 +62,9 @@ function fileExtension($file){
 
 
 
+//search database. I think for the rest of the day I'll finish the presentation for OO 
+//this is screwing with my head now.
+
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +96,11 @@ function fileExtension($file){
    
         <div>
             <p>Audio Library</p>
-            
+            <form>
+            <label for="search">Search Database</label>
+            <input type="text" id="search" name="search"> 
+            <input type="submit" name="command" value="Search">
+            </form>
         </div>
 
 
