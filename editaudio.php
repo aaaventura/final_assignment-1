@@ -117,7 +117,6 @@ else{
 } 
 
 
-// i also need to figure out how to delete it from the file too. y'know?
 
 ?>
 

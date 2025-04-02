@@ -15,6 +15,12 @@ echo "Logged in as: " . $_SESSION['name'];
 
 
 
+// the next thing I should figure out how to do is... create a library. I guess... which shouldn't be too hard.
+// but first, honestly, I should change the database. i think... I really need to add more data like name and date created and shit liek that.
+//after creating that, I should make categories, I guess? I don't really know what that is... but I don't think i have to do those things. butt also, 
+// i think I should do as many of the things that I should. because I'm tight for time here. 
+//I won't be able to implement everything. the next on the crud list is the library search. that's pretty much it. that's the next step... I can finish crud be the end of this week is i do my best.
+
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +38,9 @@ echo "Logged in as: " . $_SESSION['name'];
         <h1>Audio Library Database</h1>
         <nav>
             <ul>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="#">login</a></li>
-                <li><a href="#">Search Library</a></li>
+                <li><a href="audiolibrary.php">Search Library</a></li> 
                 <li><a href="#">Upload</a></li>
                 <li><a href="edit.php">Edit</a></li>
                 <li><a href="logout.php">Log Out</a></li>

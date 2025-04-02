@@ -140,6 +140,35 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
 //creating new users
 
 
+if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
+    // inputs
+    $nameUser = filter_input(INPUT_POST, 'nameUser', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
+    $userStatement = $db->prepare($userQuery);
+
+    $userStatement->bindValue(':name', $nameUser);
+    $userStatement->bindValue(':username', $username);
+    $userStatement->bindValue(':password', $password);
+    $userStatement->bindValue(':role', $role);
+
+    if($userStatement ->execute()) {
+        echo "success";
+        header("Location: adminpage.php");
+    }
+    else{
+        echo "failed";
+    }
+
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -157,6 +186,7 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
         <h1>Audio Library Database adminpage</h1>
         <nav>
             <ul>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="#">login</a></li>
                 <li><a href="#">Search Library</a></li>
                 <li><a href="#">Upload</a></li>
@@ -176,22 +206,21 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
 
         <div>
             <h2>user database</h2>
-            <form>
+            
                 
-                <form action="#" method="post">
-                    <label for="name">Create new user</label>
-                    <input type="text" name="name" placeholder="name" required>
-                    <input type="text" name="username" placeholder="username">
-                    <input type="text" name="password" placeholder="password">
-                    <select id="role" name="role">
-                        <option value="admin">Admin</option>
-                        <option value="employee">Employee</option>
-                        <option value="artist">Artist</option>
-                    </select>
-                    <button type="submit">Create</button>
-                </form>
-
+            <form action="#" method="post">
+                <label for="name">Create new user</label>
+                <input type="text" name="nameUser" placeholder="name" required>
+                <input type="text" name="username" placeholder="username" required>
+                <input type="text" name="password" placeholder="password" required>
+                <select id="role" name="role">
+                    <option value="admin">Admin</option>
+                    <option value="employee">Employee</option>
+                    <option value="artist">Artist</option>
+                </select>
+                <button type="submit">Create</button>
             </form>
+
             <?php if(empty($usersData)): ?>
                 <h1> No files found </h1>
 
@@ -249,25 +278,12 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
                         <li><?=$audioData['genre'] ?></li>
                         <li><?=$audioData['description'] ?></li>
                         <li><a href="editaudio.php?id=<?=$audioData['id']?>">Edit</a></li>
-                <!-- 
-                        I think it's best that I just do it the way that I always knew how to do it
-                        I'll make the edit page something of it's own... and then it'll... be easier.
-                        the edit page is where the deleting function goes.
-                        deleting and also changing the metadata of the file. y'know? -->
 
                     </ul>
                 <?php endforeach; ?>
 
             <?php endif; ?>
-            <ul class="audioFileDatabase">
-                <h1>item test template</h1>
-                <li>audiofile</li>
-                <li>artist</li>
-                <li>producer</li>
-                <li>creator</li>
-                <li>genre</li>
-                <li>description</li>
-            </ul>
+            
         </div>
         
 
