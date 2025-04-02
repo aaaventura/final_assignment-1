@@ -78,6 +78,8 @@ $description = filter_input(INPUT_POST,'description', FILTER_SANITIZE_FULL_SPECI
 $command = filter_input(INPUT_POST,'command', FILTER_SANITIZE_STRING);
 // Checks for Update command.
 
+//extra todo: make sure this doesn't activate when first time--only activate when a post command is given.
+// it is making unknown show up after the "Logged in as: admin"
 if($command === 'Update'){
     
     // Updates specific row based on id.
@@ -153,7 +155,7 @@ else{
                             <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
                             your browser does not support the audio element
                         </audio>
-                <form action="edit.php" method="post">
+                <form action="editaudio.php" method="post">
                     <label for="artist">artist</label>
                     <input type="text" id="artist" name="artist" value="<?= htmlspecialchars_decode($audioData['artist']); ?>"> 
                     <label for="producer">producer</label>
