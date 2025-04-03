@@ -20,7 +20,7 @@ if (isset($_SESSION['name'])) {
 
 // checks login credentials
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php"); 
+    header("Location: accessdenied.php"); 
     exit;
 }
 
@@ -298,7 +298,7 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
                             your browser does not support the audio element
                         </audio>
                         <li><?=$audioData['id'] ?></li>
-                        <li><?=$audioData['title'] ?></li>
+                        <li><a href="audiopage.php?id=<?=$audioData['id']?>"><?=$audioData['title'] ?></a></li>
                         <li><?=$audioData['artist'] ?></li>
                         <li><?=$audioData['producer'] ?></li>
                         <li><?=$audioData['creator'] ?></li>

@@ -19,10 +19,14 @@ if (isset($_SESSION['name'])) {
 
 
 // checks login credentials
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php"); 
+$allowedRoles = ['admin', 'artist'];
+
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
+    header("Location: accessdenied.php");
     exit;
 }
+
+
 
 
 
@@ -83,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 //execute
                 if($statement -> execute()){
                     echo "upload to database success";
-                    header("Location: adminpage.php");
+                    header("Location: audiolibrary.php");
                 }
             } else {
                 echo "Error: File could not be saved.";
@@ -98,82 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 
-// diaply audio database. 
-
-$displayQuery = "SELECT * FROM audio order by id DESC";
-
-$displayStatement = $db -> prepare($displayQuery);
-
-$displayStatement -> execute();
-
-$audioFilesData = $displayStatement -> fetchAll(PDO::FETCH_ASSOC);
-
-
-// finding path data.
-function fileExtension($file){
-
-    $mimeTypes = [
-        'mp3' => 'audio/mpeg',
-        'wav' => 'audio/wav',
-        'ogg' => 'audio/ogg',
-        'aac' => 'audio/aac'
-    ];
-
-    $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
-
-    $audioType = $mimeTypes[$fileExtension] ?? 'audio/mpeg';
-
-
-    return $audioType;
-
-}
 
 
 
 
-// display user database
-$displayUsersQuery = "SELECT * FROM users order by id DESC";
 
-$displayUsersStatement = $db -> prepare($displayUsersQuery);
-
-$displayUsersStatement -> execute();
-
-$usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
-//creating new users
-
-
-if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
-    // inputs
-    $nameUser = filter_input(INPUT_POST, 'nameUser', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
-    $userStatement = $db->prepare($userQuery);
-
-    $userStatement->bindValue(':name', $nameUser);
-    $userStatement->bindValue(':username', $username);
-    $userStatement->bindValue(':password', $password);
-    $userStatement->bindValue(':role', $role);
-
-    if($userStatement ->execute()) {
-        echo "success";
-        header("Location: adminpage.php");
-    }
-    else{
-        echo "failed";
-    }
-
-
-}
 
 ?>
 
@@ -204,69 +137,14 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
 
     <main>
    
-        <div>
-            <p>This is the starting page for my content management system.</p>
-            <a href="#">Get Started</a>
-        </div>
-
 
         <div>
-            <h2>user database</h2>
-            
-                
-            <form action="#" method="post">
-                <label for="name">Create new user</label>
-                <input type="text" name="nameUser" placeholder="name" required>
-                <input type="text" name="username" placeholder="username" required>
-                <input type="text" name="password" placeholder="password" required>
-                <select id="role" name="role">
-                    <option value="admin">Admin</option>
-                    <option value="employee">Employee</option>
-                    <option value="artist">Artist</option>
-                </select>
-                <button type="submit">Create</button>
-            </form>
-
-            <?php if(empty($usersData)): ?>
-                <h1> No files found </h1>
-
-
-            <?php else: ?> 
-
-                <div class="audioFileDatabaseHeader">
-                    <span>ID</span>
-                    <span>Name</span>
-                    <span>Username</span>
-                    <span>Password</span>
-                    <span>Role</span>
-                    <span>Actions</span>
-                </div>
-                <?php foreach($usersData as $user): ?>
-
-                    <ul class="audioFileDatabase">
-                        
-                        <li><?=$user['id'] ?></li>
-                        <li><?=$user['name'] ?></li>
-                        <li><?=$user['username'] ?></li>
-                        <li><?=$user['password'] ?></li>
-                        <li><?=$user['role'] ?></li>
-
-                        <li><a href="edituser.php?id=<?=$user['id']?>">Edit</a></li>
-               
-
-                    </ul>
-                <?php endforeach; ?>
-
-            <?php endif; ?>
-        </div>
-
-        <div>
-            <h2>audio database</h2>
+            <h2>Upload Your File</h2>
             <form action="#" method="post" enctype="multipart/form-data">
                 <label for="audio">Choose a file to upload:</label>
                 <input type="file" name="audio" id="audio" accept="audio/*" required>
                 <input type="text" name="title" placeholder="title" required>
-                <input type="text" name="artist" placeholder="artist" required>
+                <input type="text" name="artist" placeholder="artist" value="<?= $_SESSION['name'] ?>">
                 <input type="text" name="producer" placeholder="producer">
                 <input type="text" name="creator" placeholder="creator">
                 <input type="text" name="genre" placeholder="genre" required>
@@ -274,42 +152,7 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
                 <button type="submit">Upload</button>
             </form>
             <!-- this is where I'll put a php loop or something liek that, y'know?-->
-            <?php if(empty($audioFilesData)): ?>
-                <h1> No files found </h1>
-
-
-            <?php else: ?> 
-
-                <div class="audioFileDatabaseHeader">
-                    <span>Audio</span>
-                    <span>ID</span>
-                    <span>Title</span>
-                    <span>Artist</span>
-                    <span>Producer</span>
-                    <span>Creator</span>
-                    <span>Genre</span>
-                    <spane>Description</spane>
-                </div>
-                <?php foreach($audioFilesData as $audioData): ?>
-
-                    <ul class="audioFileDatabase">
-                        <audio controls>
-                            <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
-                            your browser does not support the audio element
-                        </audio>
-                        <li><?=$audioData['id'] ?></li>
-                        <li><?=$audioData['title'] ?></li>
-                        <li><?=$audioData['artist'] ?></li>
-                        <li><?=$audioData['producer'] ?></li>
-                        <li><?=$audioData['creator'] ?></li>
-                        <li><?=$audioData['genre'] ?></li>
-                        <li><?=$audioData['description'] ?></li>
-                        <li><a href="editaudio.php?id=<?=$audioData['id']?>">Edit</a></li>
-
-                    </ul>
-                <?php endforeach; ?>
-
-            <?php endif; ?>
+        
             
         </div>
         

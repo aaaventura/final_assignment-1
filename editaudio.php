@@ -16,7 +16,7 @@ if (isset($_SESSION['name'])) {
 }
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php"); 
+    header("Location: accessdenied.php"); 
     exit;
 }
 

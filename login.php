@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    var_dump($user);
+    //var_dump($user);
 
     // Verify password
     if ($user && $password === $user['password']) {
@@ -26,11 +26,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php"); // Redirect to dashboard
         exit;
     } else {
-        echo "<p>Invalid login credentials. Please try again.</p>";
+        //echo "<p>Invalid login credentials. Please try again.</p>";
         
     }
 }
 
 ?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Homepage</title>
+</head>
+<body>
+
+    <header>
+        <h1><a href="index.php">Audio Library Database</a></h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="audiolibrary.php">Search Library</a></li> 
+                <li><a href="artistpage.php">Artists Upload</a></li>
+                <li><a href="edit.php">Edit</a></li>
+                <li><a href="logout.php">Log Out</a></li>
+                <li><a href="adminpage.php">admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1> Acess Denied.</h1>
+        <p> Invalid Login Credentials</p>
+        <p> Please return to the homepage: <a href="index.php">Here</a></p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 My CMS. All rights reserved.</p>
+    </footer>
+    
+</body>
+</html>
+
 
 

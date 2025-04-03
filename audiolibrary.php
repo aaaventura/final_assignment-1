@@ -20,13 +20,14 @@ if (isset($_SESSION['name'])) {
 
 
 // checks login credentials
-$allowed_roles = ['admin', 'artist', 'employee'];
+$allowedRoles = ['admin', 'artist', 'employee'];
 
-if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
-    header("Location: index.php");
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
+    header("Location: accessdenied.php");
     exit;
 }
-?>
+
+
 
 
 
@@ -74,24 +75,24 @@ function fileExtension($file){
 
     $audioFilesData = $displayStatement -> fetchAll(PDO::FETCH_ASSOC);
 
+    $search = filter_input(INPUT_POST,'search', FILTER_SANITIZE_STRING);
+    $searchBy = filter_input(INPUT_POST,'searchBy', FILTER_SANITIZE_STRING);
 
 
     if($_POST && !empty($_POST['search'])){
 
-    echo "search triggered";
-    $search = filter_input(INPUT_POST,'search', FILTER_SANITIZE_STRING);
-    $searchBy = filter_input(INPUT_POST,'searchBy', FILTER_SANITIZE_STRING);
+        //echo "search triggered";
+        
+        $query = "SELECT * FROM audio WHERE $searchBy LIKE :search";
 
-    $query = "SELECT * FROM audio WHERE $searchBy LIKE :search";
+        $statement = $db -> prepare($query);
+        
+        
+        $statement -> bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        //$statement -> debugDumpParams();
+        $statement -> execute();
 
-    $statement = $db -> prepare($query);
-    
-    
-    $statement -> bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
-    //$statement -> debugDumpParams();
-    $statement -> execute();
-
-    $audioFilesData = $statement -> fetchAll(PDO::FETCH_ASSOC);
+        $audioFilesData = $statement -> fetchAll(PDO::FETCH_ASSOC);
 
     
 
@@ -149,6 +150,9 @@ function fileExtension($file){
 
 
             <?php else: ?> 
+
+                <p>Search: <?= $search?></p>
+                <p>search By: <?= $searchBy?></p>
                 <div class="audioFileDatabaseHeader">
                     <span>Audio</span>
                     <span>ID</span>
@@ -157,9 +161,13 @@ function fileExtension($file){
                     <span>Producer</span>
                     <span>Creator</span>
                     <span>Genre</span>
-                    <spane>Description</spane>
+                    <span>Description</span>
+                    <span>Actions</span>
+
                 </div>
                 <?php foreach($audioFilesData as $audioData): ?>
+
+                    
 
                     <ul class="audioFileDatabase">
                     
@@ -168,11 +176,13 @@ function fileExtension($file){
                             your browser does not support the audio element
                         </audio>
                         <li><?=$audioData['id'] ?></li>
+                        <li><a href="audiopage.php?id=<?=$audioData['id']?>"><?=$audioData['title'] ?></a></li>
                         <li><?=$audioData['artist'] ?></li>
                         <li><?=$audioData['producer'] ?></li>
                         <li><?=$audioData['creator'] ?></li>
                         <li><?=$audioData['genre'] ?></li>
                         <li><?=$audioData['description'] ?></li>
+                        <li><a href="employeedownload.php?id=<?=$audioData['id']?>">DOWNLOAD</a></li>
                     
 
                     </ul>
