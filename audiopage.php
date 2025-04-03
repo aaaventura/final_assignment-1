@@ -77,18 +77,66 @@ function fileExtension($file){
 
 //filling a comment
 
+// Checks if title and post are empty.
+if ($_POST && !empty($_POST['comment'])) {
+
+    $audioid = filter_input(INPUT_POST, 'audioid', FILTER_SANITIZE_NUMBER_INT);
+
+
+    $username = $_SESSION['username'];
+    $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+    // Capturing current time.
+    $currentTimestamp = date('Y-m-d H:i:s');
+
+    //  Build the parameterized SQL query and bind to the above sanitized values.
+    $query = "INSERT INTO comments (audioid, username, comment, timestamp) VALUES (:audioid, :username, :comment, :timestamp)";
+    $statement = $db->prepare($query);
+
+    //  Bind values to the parameters
+    $statement->bindValue(':audioid', $audioid);
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':comment', $comment);
+    $statement->bindValue(':timestamp', $currentTimestamp);
+    
+    //  Execute the INSERT.
+    //  execute() will check for possible SQL injection and remove if necessary
+    if($statement ->execute()) {
+        echo "success";
+    }
+}
+
 
 
 // displaying all comments
 
 //so lets just think about this. 
-commentsid is the unique id
-audioid is what ties the comment to the page.
+//commentsid is the unique id
+//audioid is what ties the comment to the page.
 
-username is taken from the usersession
-comment is taken from the $_POST
+//username is taken from the usersession
+//comment is taken from the $_POST
 //I'm going to take a break. if I can finish this today, then I think that's an earned break...
 
+
+
+// SQL is written as a String.
+$query = "SELECT * FROM comments WHERE audioid = :audioid ORDER BY timestamp DESC";
+
+// A PDO::Statement is prepared from the query.
+$statement = $db->prepare($query);
+
+// Execution on the DB server is delayed until we execute().
+$statement->execute();
+
+// Fetch all rows from the query result.
+$blogposts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+function timedateformat($date) {
+    // Format the date to "mm, dd, yyyy, hh:ii am/pm"
+    $formattedDate = date('F d, Y, h:i a', strtotime($date));
+    return $formattedDate;
+}
 
 ?>
 
@@ -150,7 +198,8 @@ comment is taken from the $_POST
             <form action="audiopage.php" method="post">
                 <!--  this is where the commens are goign to be handled. ez pz.-->
         
-                <p>User: <?= $_SESSION['name']?></p>
+                <p>User: <?= $_SESSION['username']?></p>
+                <input type="hidden" name="audioid" value="<?= $audioid?>">
     
                 <label for="comment">Comment:</label>
                 <textarea id="comment" name="comment" rows="4" cols="50" required></textarea>
