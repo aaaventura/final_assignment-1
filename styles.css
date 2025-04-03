@@ -25,6 +25,63 @@ footer {
     bottom: 0;
     width: 100%;
 }
-.audioFileDatabase li{
+
+
+a{
+    text-decoration: none;
+}
+
+
+nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox to align items in a row */
+}
+
+nav ul li {
+    margin-right: 20px; /* Add space between items */
+}
+
+nav ul li a {
+    text-decoration: none; /* Remove underline from links */
+    color: #000; /* Set link color */
+}
+
+
+.audioFileDatabaseContainer {
+    width: 100%;
+}
+
+.audioFileDatabaseHeader {
     display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.audioFileDatabaseHeader span {
+    margin-right: 10px;
+    text-align: center;
+    flex: 1;
+}
+
+.audioFileDatabase {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.audioFileDatabase li {
+    margin-right: 10px;
+    flex: 1;
+}
+
+.audioFileDatabase a {
+    margin-left: auto;
 }

@@ -10,16 +10,23 @@
 session_start();
 
 require('connect.php');
+if (isset($_SESSION['name'])) {
+    echo "Logged in as: " . $_SESSION['name'];
+} else {
+    echo "Not logged in.";
+}
 
-echo "Logged in as: " . $_SESSION['name'];
+
 
 
 // checks login credentials
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php"); 
+$allowed_roles = ['admin', 'artist', 'employee'];
+
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: index.php");
     exit;
 }
-
+?>
 
 
 
@@ -30,13 +37,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 // diaply audio database. 
 
-$displayQuery = "SELECT * FROM audio order by id DESC";
 
-$displayStatement = $db -> prepare($displayQuery);
-
-$displayStatement -> execute();
-
-$audioFilesData = $displayStatement -> fetchAll(PDO::FETCH_ASSOC);
 
 
 // finding path data.
@@ -65,6 +66,39 @@ function fileExtension($file){
 //search database. I think for the rest of the day I'll finish the presentation for OO 
 //this is screwing with my head now.
 
+    $displayQuery = "SELECT * FROM audio order by id DESC";
+
+    $displayStatement = $db -> prepare($displayQuery);
+
+    $displayStatement -> execute();
+
+    $audioFilesData = $displayStatement -> fetchAll(PDO::FETCH_ASSOC);
+
+
+
+    if($_POST && !empty($_POST['search'])){
+
+    echo "search triggered";
+    $search = filter_input(INPUT_POST,'search', FILTER_SANITIZE_STRING);
+    $searchBy = filter_input(INPUT_POST,'searchBy', FILTER_SANITIZE_STRING);
+
+    $query = "SELECT * FROM audio WHERE $searchBy LIKE :search";
+
+    $statement = $db -> prepare($query);
+    
+    
+    $statement -> bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+    //$statement -> debugDumpParams();
+    $statement -> execute();
+
+    $audioFilesData = $statement -> fetchAll(PDO::FETCH_ASSOC);
+
+    
+
+}
+
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -83,11 +117,11 @@ function fileExtension($file){
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="#">login</a></li>
-                <li><a href="#">Search Library</a></li>
+                <li><a href="audiolibrary.php">Search Library</a></li> 
                 <li><a href="#">Upload</a></li>
                 <li><a href="edit.php">Edit</a></li>
                 <li><a href="logout.php">Log Out</a></li>
+                <li><a href="adminpage.php">admin</a></li>
             </ul>
         </nav>
     </header>
@@ -96,10 +130,13 @@ function fileExtension($file){
    
         <div>
             <p>Audio Library</p>
-            <form>
+            <form method="POST">
             <label for="search">Search Database</label>
-            <input type="text" id="search" name="search"> 
-            <input type="submit" name="command" value="Search">
+            <input type="text" id="search" name="search" required> <br>
+            <input type="radio" name="searchBy" id="title" value="title" checked/> <label for="title">Title</label><br />
+            <input type="radio" name="searchBy" id="artist" value="artist" /> <label for="artist">artist</label><br />
+            <input type="radio" name="searchBy" id="genre" value="genre" /> <label for="genre">Genre</label><br />
+            <input type="submit" name="submit">
             </form>
         </div>
 
@@ -112,10 +149,20 @@ function fileExtension($file){
 
 
             <?php else: ?> 
+                <div class="audioFileDatabaseHeader">
+                    <span>Audio</span>
+                    <span>ID</span>
+                    <span>Title</span>
+                    <span>Artist</span>
+                    <span>Producer</span>
+                    <span>Creator</span>
+                    <span>Genre</span>
+                    <spane>Description</spane>
+                </div>
                 <?php foreach($audioFilesData as $audioData): ?>
 
                     <ul class="audioFileDatabase">
-                        <h1>item <?=$audioData['id'] ?></h1>
+                    
                         <audio controls>
                             <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
                             your browser does not support the audio element
@@ -126,7 +173,7 @@ function fileExtension($file){
                         <li><?=$audioData['creator'] ?></li>
                         <li><?=$audioData['genre'] ?></li>
                         <li><?=$audioData['description'] ?></li>
-                        <li><a href="editaudio.php?id=<?=$audioData['id']?>">Edit</a></li>
+                    
 
                     </ul>
                 <?php endforeach; ?>

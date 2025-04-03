@@ -9,7 +9,11 @@
 ****************/
 session_start();
 require('connect.php');
-echo "Logged in as: " . $_SESSION['name'];
+if (isset($_SESSION['name'])) {
+    echo "Logged in as: " . $_SESSION['name'];
+} else {
+    echo "Not logged in.";
+}
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: index.php"); 
@@ -69,6 +73,7 @@ function fileExtension($file){
 
 // _POST all relevant data for processes.
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $artist = filter_input(INPUT_POST, 'artist', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $producer = filter_input(INPUT_POST, 'producer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $creator = filter_input(INPUT_POST,'creator', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -83,9 +88,9 @@ $command = filter_input(INPUT_POST,'command', FILTER_SANITIZE_STRING);
 if($command === 'Update'){
     
     // Updates specific row based on id.
-    $query     = "UPDATE audio SET artist = :artist, producer = :producer, creator = :creator, genre = :genre, description = :description WHERE id = :id";
+    $query     = "UPDATE audio SET title = :title, artist = :artist, producer = :producer, creator = :creator, genre = :genre, description = :description WHERE id = :id";
     $statement = $db->prepare($query);
-
+    $statement->bindValue(':title', $title);
     $statement->bindValue(':artist', $artist);
     $statement->bindValue(':producer', $producer);
     $statement->bindValue(':creator', $creator);
@@ -134,11 +139,13 @@ else{
     <header>
         <h1>Audio Library Database</h1>
         <nav>
-            <ul>
-                <li><a href="#">login</a></li>
-                <li><a href="#">Search Library</a></li>
+        <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="audiolibrary.php">Search Library</a></li> 
                 <li><a href="#">Upload</a></li>
                 <li><a href="edit.php">Edit</a></li>
+                <li><a href="logout.php">Log Out</a></li>
+                <li><a href="adminpage.php">admin</a></li>
             </ul>
         </nav>
     </header>
@@ -155,6 +162,8 @@ else{
                             your browser does not support the audio element
                         </audio>
                 <form action="editaudio.php" method="post">
+                    <label for="title">title</label>
+                    <input type="text" id="title" name="title" value="<?= htmlspecialchars_decode($audioData['title']); ?>"> 
                     <label for="artist">artist</label>
                     <input type="text" id="artist" name="artist" value="<?= htmlspecialchars_decode($audioData['artist']); ?>"> 
                     <label for="producer">producer</label>

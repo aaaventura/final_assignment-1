@@ -11,7 +11,11 @@ session_start();
 
 require('connect.php');
 
-echo "Logged in as: " . $_SESSION['name'];
+if (isset($_SESSION['name'])) {
+    echo "Logged in as: " . $_SESSION['name'];
+} else {
+    echo "Not logged in.";
+}
 
 
 // checks login credentials
@@ -51,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 echo "The file " . htmlspecialchars($fileName) . " has been uploaded successfully.";
 
                 // saving to database metadata
+                $title = $_POST['title'];
                 $artist = $_POST['artist'];
                 $producer = isset($_POST['producer']) ? $_POST['producer'] : ''; // Optional field
                 $creator = isset($_POST['creator']) ? $_POST['creator'] : ''; // Optional field
@@ -62,12 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
                 ///this is where i'm going to put it into the database 
-                $query = "INSERT INTO audio (fileLocation, artist, producer, creator, genre, description) VALUES (:fileLocation, :artist, :producer, :creator, :genre, :description)";
+                $query = "INSERT INTO audio (fileLocation, title, artist, producer, creator, genre, description) VALUES (:fileLocation, :title, :artist, :producer, :creator, :genre, :description)";
 
                 $statement = $db->prepare($query);
 
                 //bind values
                 $statement -> bindValue(':fileLocation', $destination);
+                $statement -> bindValue(':title', $title);
                 $statement -> bindValue(':artist', $artist);
                 $statement -> bindValue(':producer', $producer);
                 $statement -> bindValue(':creator', $creator);
@@ -187,11 +193,11 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="#">login</a></li>
-                <li><a href="#">Search Library</a></li>
+                <li><a href="audiolibrary.php">Search Library</a></li> 
                 <li><a href="#">Upload</a></li>
                 <li><a href="edit.php">Edit</a></li>
                 <li><a href="logout.php">Log Out</a></li>
+                <li><a href="adminpage.php">admin</a></li>
             </ul>
         </nav>
     </header>
@@ -226,10 +232,19 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
 
 
             <?php else: ?> 
+
+                <div class="audioFileDatabaseHeader">
+                    <span>ID</span>
+                    <span>Name</span>
+                    <span>Username</span>
+                    <span>Password</span>
+                    <span>Role</span>
+                    <span>Actions</span>
+                </div>
                 <?php foreach($usersData as $user): ?>
 
                     <ul class="audioFileDatabase">
-                        <h1>item <?=$user['id'] ?></h1>
+                        
                         <li><?=$user['id'] ?></li>
                         <li><?=$user['name'] ?></li>
                         <li><?=$user['username'] ?></li>
@@ -250,6 +265,7 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
             <form action="#" method="post" enctype="multipart/form-data">
                 <label for="audio">Choose a file to upload:</label>
                 <input type="file" name="audio" id="audio" accept="audio/*" required>
+                <input type="text" name="title" placeholder="title" required>
                 <input type="text" name="artist" placeholder="artist" required>
                 <input type="text" name="producer" placeholder="producer">
                 <input type="text" name="creator" placeholder="creator">
@@ -263,15 +279,26 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
 
 
             <?php else: ?> 
+
+                <div class="audioFileDatabaseHeader">
+                    <span>Audio</span>
+                    <span>ID</span>
+                    <span>Title</span>
+                    <span>Artist</span>
+                    <span>Producer</span>
+                    <span>Creator</span>
+                    <span>Genre</span>
+                    <spane>Description</spane>
+                </div>
                 <?php foreach($audioFilesData as $audioData): ?>
 
                     <ul class="audioFileDatabase">
-                        <h1>item <?=$audioData['id'] ?></h1>
                         <audio controls>
                             <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
                             your browser does not support the audio element
                         </audio>
                         <li><?=$audioData['id'] ?></li>
+                        <li><?=$audioData['title'] ?></li>
                         <li><?=$audioData['artist'] ?></li>
                         <li><?=$audioData['producer'] ?></li>
                         <li><?=$audioData['creator'] ?></li>

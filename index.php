@@ -11,7 +11,11 @@ session_start();
 
 require('connect.php');
 
-echo "Logged in as: " . $_SESSION['name'];
+if (isset($_SESSION['name'])) {
+    echo "Logged in as: " . $_SESSION['name'];
+} else {
+    echo "Not logged in.";
+}
 
 
 
@@ -35,13 +39,12 @@ echo "Logged in as: " . $_SESSION['name'];
 <body>
 
     <header>
-        <h1>Audio Library Database</h1>
+        <h1><a href="index.php">Audio Library Database</a></h1>
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="#">login</a></li>
                 <li><a href="audiolibrary.php">Search Library</a></li> 
-                <li><a href="#">Upload</a></li>
+                <li><a href="artistpage.php">Artists Upload</a></li>
                 <li><a href="edit.php">Edit</a></li>
                 <li><a href="logout.php">Log Out</a></li>
                 <li><a href="adminpage.php">admin</a></li>
@@ -56,15 +59,6 @@ echo "Logged in as: " . $_SESSION['name'];
         <button type="submit">Login</button>
     </form>
 
-
-        <div>
-            <p>This is the starting page for my content management system.</p>
-            <a href="#">Get Started</a>
-        </div>
-
-        <audio></audio>
-        
-        
     </main>
 
     <footer>

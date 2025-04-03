@@ -11,7 +11,11 @@ session_start();
 
 require('connect.php');
 
-echo "Logged in as: " . $_SESSION['name'];
+if (isset($_SESSION['name'])) {
+    echo "Logged in as: " . $_SESSION['name'];
+} else {
+    echo "Not logged in.";
+}
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: index.php"); 
@@ -138,10 +142,11 @@ else{
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="#">login</a></li>
-                <li><a href="#">Search Library</a></li>
+                <li><a href="audiolibrary.php">Search Library</a></li> 
                 <li><a href="#">Upload</a></li>
                 <li><a href="edit.php">Edit</a></li>
+                <li><a href="logout.php">Log Out</a></li>
+                <li><a href="adminpage.php">admin</a></li>
             </ul>
         </nav>
     </header>
