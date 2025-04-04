@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #ce6060;
+    background-color: #ee0d0d;
     color: white;
     padding: 20px;
 }
@@ -17,7 +17,7 @@ main {
 }
 
 footer {
-    background-color: #d47171;
+    background-color: #991414;
     color: white;
     padding: 10px;
     
@@ -85,3 +85,7 @@ nav ul li a {
 .audioFileDatabase a {
     margin-left: auto;
 }
+
+
+
+

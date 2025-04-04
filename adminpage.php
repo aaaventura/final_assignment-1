@@ -172,10 +172,12 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
         echo "failed";
     }
 
+    //next thing I'll do today is hash the passwords and just focus a lot more on security I think.
 
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

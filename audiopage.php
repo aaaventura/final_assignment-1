@@ -105,6 +105,7 @@ function timedateformat($date) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Homepage</title>
+    <script src="captcha.js"></script>
 </head>
 <body>
 
@@ -131,7 +132,7 @@ function timedateformat($date) {
                             <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
                             your browser does not support the audio element
                         </audio>
-                <form action="editaudio.php" method="post">
+                <div>
                     <h1 >title</h1>
                     <p><?= htmlspecialchars_decode($audioData['title']); ?> </p> 
                     <h1>artist</h1>
@@ -145,7 +146,7 @@ function timedateformat($date) {
                     <h1 >description</h1>
                     <p><?= htmlspecialchars_decode($audioData['description']) ?></p>
                     
-                </form>
+                </div>
             </div>
         </div>
 
@@ -161,7 +162,11 @@ function timedateformat($date) {
                 <label for="comment">Comment:</label>
                 <textarea id="comment" name="comment" rows="4" cols="50" required></textarea>
                 
-                <input type="submit" value="Submit">
+                <canvas id="captcha"></canvas>
+                <input id="textBox" type="text" name="text" required>
+
+
+                <button type="submit">Login</button>
             </form>
         </div>
 

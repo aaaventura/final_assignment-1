@@ -100,13 +100,6 @@ function fileExtension($file){
 
 
 
-    // this is where i last stopped 0001
-    // I'm going to add the captcha tomorrow to the comments and also to the sign in. 
-    // if I have nothing else to do, maybe I should also fix up the login and log out interface. y'know?
-    //also adding security features, I guess... tomorrow is the time i'll actually have to look at what next to add. 
-    //i'm surprised with how much i completed within a week. all of the essential things, albeit the visuals lacking a bit.
-    // that's just somethign I can do in a day, honestly. 
-
 
 }
 

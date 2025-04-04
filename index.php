@@ -15,12 +15,14 @@ if (isset($_SESSION['name'])) {
     echo "Logged in as: " . $_SESSION['name'];
 } else {
     echo "Not logged in.";
+    echo '<script src="captcha.js"></script>';
 }
 
 
-//next thign I have to make is the captcha. nothign too hard, 
-// I'm gonna have to start using js now since that's how captcha work i think?
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +31,9 @@ if (isset($_SESSION['name'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
+
+   
+
     <title>Homepage</title>
 </head>
 <body>
@@ -41,19 +46,32 @@ if (isset($_SESSION['name'])) {
                 <li><a href="audiolibrary.php">Search Library</a></li> 
                 <li><a href="artistpage.php">Artists Upload</a></li>
                 <li><a href="edit.php">Edit</a></li>
-                <li><a href="logout.php">Log Out</a></li>
                 <li><a href="adminpage.php">admin</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-    <form action="login.php" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
+        <?php if(isset($_SESSION['name'])): ?>
+            <p><a href="logout.php">log out</a></p>
 
+        <?php else:?>
+            <form action="login.php" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <canvas id="captcha"></canvas>
+            <input id="textBox" type="text" name="text" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <?php endif; ?>
+
+    
+
+   
+    
     </main>
 
     <footer>
