@@ -29,19 +29,8 @@ if (isset($_SESSION['name'])) {
 </head>
 <body>
 
-    <header>
-        <h1><a href="index.php">Audio Library Database</a></h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="audiolibrary.php">Search Library</a></li> 
-                <li><a href="artistpage.php">Artists Upload</a></li>
-                <li><a href="edit.php">Edit</a></li>
-                <li><a href="logout.php">Log Out</a></li>
-                <li><a href="adminpage.php">admin</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include 'header.php' ?>
+
 
     <main>
         <h1> Acess Denied.</h1>
@@ -50,10 +39,7 @@ if (isset($_SESSION['name'])) {
 
     </main>
 
-    <footer>
-        <p>&copy; 2025 My CMS. All rights reserved.</p>
-    </footer>
-    
+    <?php include 'footer.php' ?>
 </body>
 </html>
 

@@ -87,19 +87,8 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
 </head>
 <body>
 
-    <header>
-        <h1>Audio Library Database</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="audiolibrary.php">Search Library</a></li> 
-                <li><a href="#">Upload</a></li>
-                <li><a href="edit.php">Edit</a></li>
-                <li><a href="logout.php">Log Out</a></li>
-                <li><a href="adminpage.php">admin</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include 'header.php' ?>
+
 
     <main>
     
@@ -125,9 +114,7 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 My CMS. All rights reserved.</p>
-    </footer>
+    <?php include 'footer.php' ?>
     
 </body>
 </html>
