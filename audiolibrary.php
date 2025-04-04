@@ -21,7 +21,7 @@ $adminemployee = ['admin', 'employee'];
 
 
 // checks login credentials
-$allowedRoles = ['admin', 'artist', 'employee'];
+$allowedRoles = ['admin', 'artist', 'employee', 'browser'];
 
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
     header("Location: accessdenied.php");

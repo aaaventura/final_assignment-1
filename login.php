@@ -16,14 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //var_dump($user);
 
     // Verify password
-    if ($user && $password === $user['password']) {
-        // Store user data in session
+    if ($user && password_verify($password, $user['password'])) {
+        // store users in session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['name'] = $user['name'];
         $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role']; // Assuming you have a 'role' column
+        $_SESSION['role'] = $user['role']; 
 
-        header("Location: index.php"); // Redirect to dashboard
+        header("Location: index.php"); 
         exit;
     } else {
         //echo "<p>Invalid login credentials. Please try again.</p>";

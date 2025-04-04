@@ -17,7 +17,7 @@ if (isset($_SESSION['name'])) {
 
 
 // verifying user
-$allowedRoles = ['admin', 'artist', 'employee'];
+$allowedRoles = ['admin', 'artist', 'employee', 'browser'];
 
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
     header("Location: accessdenied.php");
@@ -44,21 +44,20 @@ if ($_POST && !empty($_POST['comment'])) {
 
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
-    // Capturing current time.
+
     $currentTimestamp = date('Y-m-d H:i:s');
 
-    //  Build the parameterized SQL query and bind to the above sanitized values.
+  
     $query = "INSERT INTO comments (audioid, username, comment, timestamp) VALUES (:audioid, :username, :comment, :timestamp)";
     $statement = $db->prepare($query);
 
-    //  Bind values to the parameters
+ 
     $statement->bindValue(':audioid', $audioid);
     $statement->bindValue(':username', $username);
     $statement->bindValue(':comment', $comment);
     $statement->bindValue(':timestamp', $currentTimestamp);
     
-    //  Execute the INSERT.
-    //  execute() will check for possible SQL injection and remove if necessary
+    
     if($statement ->execute()) {
         echo "success";
         //$statement -> debugDumpParams();

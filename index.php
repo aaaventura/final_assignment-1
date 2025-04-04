@@ -45,13 +45,18 @@ if (isset($_SESSION['name'])) {
                 <li><a href="index.php">Home</a></li>
                 <li><a href="audiolibrary.php">Search Library</a></li> 
                 <li><a href="artistpage.php">Artists Upload</a></li>
-                <li><a href="edit.php">Edit</a></li>
+                
                 <li><a href="adminpage.php">admin</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+
+        <?php if (!isset($_SESSION['name'])): ?>
+                    
+                <?php endif; ?>
+
         <?php if(isset($_SESSION['name'])): ?>
             <p><a href="logout.php">log out</a></p>
 
@@ -65,6 +70,12 @@ if (isset($_SESSION['name'])) {
 
             <button type="submit">Login</button>
         </form>
+
+
+        <div>
+            <p>No account?</p>
+            <p><a href="createaccount.php">Create Account</a></p>
+        </div>
 
         <?php endif; ?>
 

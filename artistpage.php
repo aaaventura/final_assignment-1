@@ -19,7 +19,7 @@ if (isset($_SESSION['name'])) {
 
 
 // checks login credentials
-$allowedRoles = ['admin', 'artist'];
+$allowedRoles = ['admin', 'artist', 'employee'];
 
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
     header("Location: accessdenied.php");

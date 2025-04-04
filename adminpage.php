@@ -156,12 +156,22 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
 
     $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+
+
+    // salting and hashing password
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+
+
+
+
+
     $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
     $userStatement = $db->prepare($userQuery);
 
     $userStatement->bindValue(':name', $nameUser);
     $userStatement->bindValue(':username', $username);
-    $userStatement->bindValue(':password', $password);
+    $userStatement->bindValue(':password', $hashedPassword);
     $userStatement->bindValue(':role', $role);
 
     if($userStatement ->execute()) {
@@ -172,7 +182,6 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
         echo "failed";
     }
 
-    //next thing I'll do today is hash the passwords and just focus a lot more on security I think.
 
 }
 

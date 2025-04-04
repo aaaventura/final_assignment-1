@@ -63,6 +63,11 @@ $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $command = filter_input(INPUT_POST,'command', FILTER_SANITIZE_STRING);
 
 
+// salting and hashing password
+$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+
+
 // Checks for Update command.
 
 //extra todo: make sure this doesn't activate when first time--only activate when a post command is given.
@@ -78,7 +83,7 @@ if($command === 'Update'){
 
     $statement->bindValue(':nameUser', $nameUser);
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':password', $hashedPassword);
     $statement->bindValue(':role', $role);
     $statement->bindValue(':id', $id);
 
