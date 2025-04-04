@@ -288,7 +288,8 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
                     <span>Producer</span>
                     <span>Creator</span>
                     <span>Genre</span>
-                    <spane>Description</spane>
+                    <span>Description</span>
+                    <span>Action</span>
                 </div>
                 <?php foreach($audioFilesData as $audioData): ?>
 
