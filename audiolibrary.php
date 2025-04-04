@@ -17,6 +17,7 @@ if (isset($_SESSION['name'])) {
 }
 
 
+$adminemployee = ['admin', 'employee'];
 
 
 // checks login credentials
@@ -28,7 +29,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
 }
 
 
-
+echo in_array($_SESSION['role'], $adminemployee);
 
 
 
@@ -94,7 +95,18 @@ function fileExtension($file){
 
         $audioFilesData = $statement -> fetchAll(PDO::FETCH_ASSOC);
 
-    
+
+
+
+
+
+    // this is where i last stopped 0001
+    // I'm going to add the captcha tomorrow to the comments and also to the sign in. 
+    // if I have nothing else to do, maybe I should also fix up the login and log out interface. y'know?
+    //also adding security features, I guess... tomorrow is the time i'll actually have to look at what next to add. 
+    //i'm surprised with how much i completed within a week. all of the essential things, albeit the visuals lacking a bit.
+    // that's just somethign I can do in a day, honestly. 
+
 
 }
 
@@ -162,7 +174,10 @@ function fileExtension($file){
                     <span>Creator</span>
                     <span>Genre</span>
                     <span>Description</span>
-                    <span>Actions</span>
+                    <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ): ?>
+                        <span>Actions</span>
+                    <?php endif; ?>
+                    
 
                 </div>
                 <?php foreach($audioFilesData as $audioData): ?>
@@ -182,8 +197,11 @@ function fileExtension($file){
                         <li><?=$audioData['creator'] ?></li>
                         <li><?=$audioData['genre'] ?></li>
                         <li><?=$audioData['description'] ?></li>
+
+                        <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ):  ?>
                         <li><a href="employeedownload.php?id=<?=$audioData['id']?>">DOWNLOAD</a></li>
-                    
+                        <?php endif; ?>
+
 
                     </ul>
                 <?php endforeach; ?>

@@ -30,7 +30,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
 $commentid = filter_input(INPUT_GET, 'commentid', FILTER_SANITIZE_NUMBER_INT);
 
 // Deletes from specific row based on id.
-$query = "DELETE FROM audio WHERE commentid = :commentid";
+$query = "DELETE FROM comments WHERE commentid = :commentid";
 $statement = $db->prepare($query);
 $statement->bindValue(':commentid', $commentid, PDO::PARAM_INT);
 $statement->execute();
