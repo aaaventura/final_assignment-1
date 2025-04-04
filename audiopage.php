@@ -180,7 +180,8 @@ function timedateformat($date) {
 
 
                 <?php if($_SESSION['role'] === 'admin'): ?>
-
+                    <p><a href="deletecomment.php?commentid=<?= $comment['commentid']?>">delete</a></p>
+                <!-- -->
                 <?php endif; ?>
             
             <!-- Repeat for each comment -->
