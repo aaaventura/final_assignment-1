@@ -16,14 +16,6 @@ require('connect.php');
 require('validateadmin.php');
 
 
-
-
-
-
-
-
-
-
 //upload
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
@@ -36,17 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             mkdir($uploadDirectory, 0755, true);
         }
         
-
-
-
+        
         $fileName = basename($_FILES['audio']['name']);
         $filename = preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $fileName);
 
         $tempPath = $_FILES['audio']['tmp_name'];
 
 
-
-
+        // allowed types
         $allowedMimeTypes = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/ogg', 'audio/aac'];
 
         $fileMimeType = mime_content_type($tempPath);
@@ -142,6 +131,7 @@ function fileExtension($file){
 
 
 
+
 // display user database
 $displayUsersQuery = "SELECT * FROM users order by id DESC";
 
@@ -171,10 +161,6 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
 
     // salting and hashing password
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-
-
-
 
 
     $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
@@ -234,6 +220,7 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
                     <option value="admin">Admin</option>
                     <option value="employee">Employee</option>
                     <option value="artist">Artist</option>
+                    <option value="browser">Browser</option>
                 </select>
                 <button type="submit">Create</button>
             </form>

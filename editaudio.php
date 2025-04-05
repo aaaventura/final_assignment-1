@@ -76,8 +76,8 @@ $description = filter_input(INPUT_POST,'description', FILTER_SANITIZE_FULL_SPECI
 $command = filter_input(INPUT_POST,'command', FILTER_SANITIZE_STRING);
 // Checks for Update command.
 
-//extra todo: make sure this doesn't activate when first time--only activate when a post command is given.
-// it is making unknown show up after the "Logged in as: admin"
+
+
 if($command === 'Update'){
     
     // Updates specific row based on id.

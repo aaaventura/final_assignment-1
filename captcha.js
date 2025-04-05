@@ -1,6 +1,6 @@
 function generateCaptcha() {
     console.log("captcha generated")
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters = 'ABCDEFGHJKLMNPQRTUVWYabcdefghijkmnopqrtuvwy23456789';
     let captcha = '';
     for (let i = 0; i < 6; i++) {
         captcha += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -17,7 +17,7 @@ function drawCaptcha(captcha) {
 
     const canvas = document.getElementById('captcha');
     const ctx = canvas.getContext('2d');
-    ctx.font = '30px Arial';
+    ctx.font = '30px courier';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     

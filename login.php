@@ -25,9 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         header("Location: index.php"); 
         exit;
-    } else {
-        //echo "<p>Invalid login credentials. Please try again.</p>";
-    }
+    } 
 }
 
 ?>
@@ -48,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'header.php' ?>
 
     <main>
-        <h1> Acess Denied.</h1>
+        <h1> Access Denied.</h1>
         <p> Invalid Login Credentials</p>
         <p> Please return to the homepage: <a href="index.php">Here</a></p>
 

@@ -16,10 +16,6 @@ require('connect.php');
 require('validateadmin.php');
 
 
-
-
-
-
 // get id
 $userId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 // If $id is not an INT, return to index.php
@@ -146,7 +142,7 @@ elseif($command =='Delete'){
                     <option value="admin" <?php echo ($defaultChoice == "admin") ? "selected" : "";?>>  Admin</option>
                     <option value="employee" <?php echo ($defaultChoice == "employee") ? "selected" : "";?>>Employee</option>
                     <option value="artist" <?php echo ($defaultChoice == "artist") ? "selected" : "";?>>Artist</option>
-                    <option value="artist" <?php echo ($defaultChoice == "browser") ? "selected" : "";?>>Browser</option>
+                    <option value="browser" <?php echo ($defaultChoice == "browser") ? "selected" : "";?>>Browser</option>
                 </select>
                 <input type="hidden" name="id" value="<?= $userData['id']?>">
                 <div>

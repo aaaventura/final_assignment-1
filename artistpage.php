@@ -13,16 +13,12 @@ require('connect.php');
 
 
 
-
-
 // checks login credentials
 $allowedRoles = ['admin', 'artist', 'employee'];
 require('validaterole.php');
 validateSessionRole($allowedRoles);
 
    
-
-
 
 //upload
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
