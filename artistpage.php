@@ -11,26 +11,16 @@ session_start();
 
 require('connect.php');
 
-if (isset($_SESSION['name'])) {
-    echo "Logged in as: " . $_SESSION['name'];
-} else {
-    echo "Not logged in.";
-}
+
+
 
 
 // checks login credentials
 $allowedRoles = ['admin', 'artist', 'employee'];
+require('validaterole.php');
+validateSessionRole($allowedRoles);
 
-if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
-    header("Location: accessdenied.php");
-    exit;
-}
-
-
-
-
-
-
+   
 
 
 
@@ -46,28 +36,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             mkdir($uploadDirectory, 0755, true);
         }
         
+        
+
+
+
         $fileName = basename($_FILES['audio']['name']);
+        $filename = preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $fileName);
+
         $tempPath = $_FILES['audio']['tmp_name'];
+
+
+
+
 
         $allowedMimeTypes = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/ogg', 'audio/aac'];
 
         $fileMimeType = mime_content_type($tempPath);
 
+
+
+
         if (in_array($fileMimeType, $allowedMimeTypes)) {
+            
+
+            if($_FILES['audio']['size'] > 10000000){
+                echo "File size ezeeds limit: 10MB";
+            }
+
+
             $destination = $uploadDirectory . $fileName;
             if (move_uploaded_file($tempPath, $destination)) {
                 echo "The file " . htmlspecialchars($fileName) . " has been uploaded successfully.";
 
                 // saving to database metadata
-                $title = $_POST['title'];
-                $artist = $_POST['artist'];
-                $producer = isset($_POST['producer']) ? $_POST['producer'] : ''; // Optional field
-                $creator = isset($_POST['creator']) ? $_POST['creator'] : ''; // Optional field
-                $genre = $_POST['genre'];
-                $description = $_POST['description'];
+                $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+                $artist = filter_input(INPUT_POST, 'artist', FILTER_SANITIZE_SPECIAL_CHARS);
+                $producer = isset($_POST['producer']) ? filter_input(INPUT_POST, 'producer', FILTER_SANITIZE_SPECIAL_CHARS): ''; 
+                $creator = isset($_POST['creator']) ? filter_input(INPUT_POST, 'creator', FILTER_SANITIZE_SPECIAL_CHARS) : ''; 
+                $genre = filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_SPECIAL_CHARS);;
+                $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);;
+
 
                 // Display for debugging
-                var_dump($fileName, $artist, $producer, $creator, $genre, $description, $destination);
+                //var_dump($fileName, $artist, $producer, $creator, $genre, $description, $destination);
 
 
                 ///this is where i'm going to put it into the database 

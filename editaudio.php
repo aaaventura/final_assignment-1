@@ -9,16 +9,9 @@
 ****************/
 session_start();
 require('connect.php');
-if (isset($_SESSION['name'])) {
-    echo "Logged in as: " . $_SESSION['name'];
-} else {
-    echo "Not logged in.";
-}
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: accessdenied.php"); 
-    exit;
-}
+// checks login credentials
+require('validateadmin.php');
 
 
 

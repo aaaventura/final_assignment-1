@@ -11,14 +11,6 @@ session_start();
 
 require('connect.php');
 
-if (isset($_SESSION['name'])) {
-    echo "Logged in as: " . $_SESSION['name'];
-} else {
-    echo "Not logged in.";
-    echo '<script src="captcha.js"></script>';
-}
-
-
 
 ?>
 
@@ -50,6 +42,7 @@ if (isset($_SESSION['name'])) {
             <p><a href="logout.php">log out</a></p>
 
         <?php else:?>
+            <script src="captcha.js"></script>
             <form action="login.php" method="POST">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>

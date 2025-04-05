@@ -11,11 +11,7 @@ session_start();
 
 require('connect.php');
 
-if (isset($_SESSION['name'])) {
-    echo "Logged in as: " . $_SESSION['name'];
-} else {
-    echo "Not logged in.";
-}
+
 
 
 

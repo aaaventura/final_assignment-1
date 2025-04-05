@@ -10,26 +10,16 @@
 session_start();
 
 require('connect.php');
-if (isset($_SESSION['name'])) {
-    echo "Logged in as: " . $_SESSION['name'];
-} else {
-    echo "Not logged in.";
-}
 
-
-$adminemployee = ['admin', 'employee'];
 
 
 // checks login credentials
 $allowedRoles = ['admin', 'artist', 'employee', 'browser'];
-
-if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
-    header("Location: accessdenied.php");
-    exit;
-}
+require('validaterole.php');
+validateSessionRole($allowedRoles);
 
 
-echo in_array($_SESSION['role'], $adminemployee);
+//echo in_array($_SESSION['role'], $adminemployee);
 
 
 

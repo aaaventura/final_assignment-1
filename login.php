@@ -3,8 +3,8 @@ session_start();
 require('connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     // Prepare SQL query
     $query = "SELECT * FROM users WHERE username = :username";
@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
         //echo "<p>Invalid login credentials. Please try again.</p>";
-        
     }
 }
 

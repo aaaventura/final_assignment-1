@@ -7,6 +7,7 @@
     Description: Index for first page assignment
 
 ****************/
+require('sessiondisplay.php');
 ?>
 
 
