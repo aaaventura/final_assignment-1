@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <input type="text" name="description" placeholder="description" required>
                 <button type="submit">Upload</button>
             </form>
-            <!-- this is where I'll put a php loop or something liek that, y'know?-->
+
         
             
         </div>

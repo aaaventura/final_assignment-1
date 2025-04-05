@@ -321,25 +321,3 @@ if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
 </body>
 </html>
 
-<!--
-so right now, I have to think about a way to make users and the webpage too, this means, that I have to access... the database for users? 
-in the admin page, you should be able to see all of the database. all users. 
-create new users
-delete users.
-update users
-read users.
-but thatt goes both ways for both users and also the data and users... so I will have to divide this thing into two.
-
-
-
-next thing I have to figure out is...what should I do next? should I make the database? or something? I
-I think the next thing I should do is display users. I guess... y'know?
-
-so 
-i have creating #
-i have reading the database. #
-then I have editing--updating and also deleting. 
-and it works perfectly.
-
-now, I just have to do this for... the users. lol.
--->

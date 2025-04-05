@@ -72,28 +72,17 @@ function fileExtension($file){
 
 
 
-// printing comments for get
-// SQL is written as a String.
+// printing comments from GET
 $query = "SELECT * FROM comments WHERE audioid = :audioid ORDER BY timestamp DESC";
-// A PDO::Statement is prepared from the query.
+
 $statement = $db->prepare($query);
 
 $statement -> bindValue(':audioid', $audioId);
 
-// Execution on the DB server is delayed until we execute().
 $statement->execute();
 
-// Fetch all rows from the query result.
 $commentposts = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-
-function timedateformat($date) {
-    // Format the date to "mm, dd, yyyy, hh:ii am/pm"
-    $formattedDate = date('F d, Y, h:i a', strtotime($date));
-    return $formattedDate;
-}
 
 ?>
 
@@ -143,7 +132,6 @@ function timedateformat($date) {
         <div id="comments-section">
 
             <form action="postcomment.php" method="post">
-                <!--  this is where the commens are goign to be handled. ez pz.-->
         
                 <p>User: <?= $_SESSION['username']?></p>
                 <input type="hidden" name="audioid" value="<?= $audioData['id'] ?>">
@@ -175,10 +163,10 @@ function timedateformat($date) {
 
                 <?php if($_SESSION['role'] === 'admin'): ?>
                     <p><a href="deletecomment.php?commentid=<?= $comment['commentid']?>">delete</a></p>
-                <!-- -->
+
                 <?php endif; ?>
             
-            <!-- Repeat for each comment -->
+
             <?php endforeach; ?>
 
         <?php endif; ?>

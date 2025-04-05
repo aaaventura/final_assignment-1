@@ -31,7 +31,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 $userId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 // If $id is not an INT, return to index.php
 if(!$userId){
-    //header("Location: index.php");
+    header("Location: accessdenied.php");
     echo "not correct value in get";
 }
 
@@ -70,8 +70,7 @@ $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
 // Checks for Update command.
 
-//extra todo: make sure this doesn't activate when first time--only activate when a post command is given.
-// it is making unknown show up after the "Logged in as: admin"
+
 if($command === 'Update'){
     
     // Updates specific row based on id.
@@ -99,15 +98,10 @@ if($command === 'Update'){
     }
 
     
-    
 
     // Return to index when complete.
     header("Location: adminpage.php");
 }
-
-
-
-
 
 
 // Elseif Delete command. 
@@ -123,9 +117,7 @@ elseif($command =='Delete'){
     header("Location: adminpage.php");
 }
 
-else{
-    echo "unknown";
-} 
+
 
 
 
@@ -161,6 +153,7 @@ else{
                     <option value="admin" <?php echo ($defaultChoice == "admin") ? "selected" : "";?>>  Admin</option>
                     <option value="employee" <?php echo ($defaultChoice == "employee") ? "selected" : "";?>>Employee</option>
                     <option value="artist" <?php echo ($defaultChoice == "artist") ? "selected" : "";?>>Artist</option>
+                    <option value="artist" <?php echo ($defaultChoice == "browser") ? "selected" : "";?>>Browser</option>
                 </select>
                 <input type="hidden" name="id" value="<?= $userData['id']?>">
                 <div>
