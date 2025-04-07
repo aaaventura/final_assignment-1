@@ -16,7 +16,20 @@ require('connect.php');
 require('validateadmin.php');
 
 
+$errors = [];
 // get id
+
+// validate id
+
+//todo, where i last ended off. finishing up all validation. 
+// have to finish all inputs. 
+// then the file input for both artists and admin pages. 
+// then do validation of all ID gets and posts. and that should be it. 
+
+
+
+
+
 $userId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 // If $id is not an INT, return to index.php
 if(!$userId){

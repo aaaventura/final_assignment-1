@@ -16,11 +16,11 @@ require('connect.php');
 require('validateadmin.php');
 
 
-//upload
+// inputs
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     //var_dump($_FILES['audio']);
-
+    //upload new file
     if(isset($_FILES['audio']) && $_FILES['audio']['error'] == UPLOAD_ERR_OK ){
         $uploadDirectory = 'audioFiles/';
 
@@ -39,8 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $allowedMimeTypes = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/ogg', 'audio/aac'];
 
         $fileMimeType = mime_content_type($tempPath);
-
-
 
 
         if (in_array($fileMimeType, $allowedMimeTypes)) {
@@ -62,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $genre = filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_SPECIAL_CHARS);;
                 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);;
 
-                // Display for debugging
                 //var_dump($fileName, $artist, $producer, $creator, $genre, $description, $destination);
 
 
@@ -94,6 +91,86 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     } else {
         echo "Error: No file uploaded or another upload error happened.";
     }
+
+
+
+
+
+
+    // create new user
+    if (!empty($_POST['nameUser']) && !empty($_POST['username'])) {
+
+
+        // gather data.
+        $nameUser = $_POST['nameUser'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $role = $_POST['role'];
+
+        $errors = [];
+
+        $allowedRoles = ['admin', 'artist', 'employee', 'browser'];
+
+        // validate
+        if(empty($nameUser)){
+            $errors[] = "Invalid Name: Cannot be empty";
+        }
+        if (!preg_match("/^[a-zA-Z0-9]{3,20}$/", $username)) {
+            $errors[] = "Invalid username. Must be 2-20 characters long and contain only letters and numbers (no spaces or special characters).";
+        }
+       
+        if (strlen($password) < 3) {
+            $errors[] = "Password must be at least 3 characters long.";
+        }
+        
+       
+        if (!in_array($role, $allowedRoles)) {
+            $errors[] = "Invalid role. It must be a valid role. (Admin, Employee, Artist, Browser)";
+        }
+    
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            header("Location: invalidinput.php");
+            exit;
+        }
+
+        // inputs
+        $nameUser = filter_var($nameUser, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $role = filter_var($role, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+    
+    
+    
+        // salting and hashing password
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    
+    
+        $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
+        $userStatement = $db->prepare($userQuery);
+    
+        $userStatement->bindValue(':name', $nameUser);
+        $userStatement->bindValue(':username', $username);
+        $userStatement->bindValue(':password', $hashedPassword);
+        $userStatement->bindValue(':role', $role);
+    
+        if($userStatement ->execute()) {
+            echo "success";
+            header("Location: adminpage.php");
+        }
+        else{
+            echo "failed";
+        }
+    
+    
+    }
+
+
     }
 
 
@@ -130,8 +207,6 @@ function fileExtension($file){
 
 
 
-
-
 // display user database
 $displayUsersQuery = "SELECT * FROM users order by id DESC";
 
@@ -144,43 +219,6 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
 
 
 
-//creating new users
-
-
-if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
-    // inputs
-    $nameUser = filter_input(INPUT_POST, 'nameUser', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-
-
-    // salting and hashing password
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-
-    $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
-    $userStatement = $db->prepare($userQuery);
-
-    $userStatement->bindValue(':name', $nameUser);
-    $userStatement->bindValue(':username', $username);
-    $userStatement->bindValue(':password', $hashedPassword);
-    $userStatement->bindValue(':role', $role);
-
-    if($userStatement ->execute()) {
-        echo "success";
-        header("Location: adminpage.php");
-    }
-    else{
-        echo "failed";
-    }
-
-
-}
 
 ?>
 

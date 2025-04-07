@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(empty($nameUser)){
         $errors[] = "Invalid Name: Cannot be empty";
     }
-    if (!preg_match("/^[a-zA-Z0-9]{2,20}$/", $username)) {
+    if (!preg_match("/^[a-zA-Z0-9]{3,20}$/", $username)) {
         $errors[] = "Invalid username. Must be 2-20 characters long and contain only letters and numbers (no spaces or special characters).";
     }
    
