@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $tempPath = $_FILES['audio']['tmp_name'];
 
-
         // allowed types
         $allowedMimeTypes = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/ogg', 'audio/aac'];
 

@@ -13,7 +13,7 @@ $role = $_SESSION['role'] ?? null;
 
 if (isset($role)){
     $role = filter_var($_SESSION['role'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    echo "role: " . $role;
+    //echo "role: " . $role;
     }
 
 

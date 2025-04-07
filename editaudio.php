@@ -82,27 +82,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     
     if (empty($id) || !is_numeric($id)) {
-        $errors[] = "ID must be a number and cannot be empty.";
+        $errors[] = "id must be a number";
     }
     
     if (empty($title)) {
-        $errors[] = "Title cannot be empty.";
+        $errors[] = "title cannot be empty";
     }
 
     if (empty($artist)) {
-        $errors[] = "Artist cannot be empty.";
+        $errors[] = "artist cannot be empty.";
     }
 
     if (empty($genre)) {
-        $errors[] = "Genre cannot be empty.";
+        $errors[] = "genre cannot be empty.";
     }
 
     if (empty($description)) {
-        $errors[] = "Description cannot be empty.";
+        $errors[] = "description cannot be empty.";
     }
     
     if (!in_array($command, $validCommands)) {
-        $errors[] = "Command must be 'Update' or 'Delete'.";
+        $errors[] = "command must be 'Update' or 'Delete'.";
     }
     
     if (!empty($errors)) {
@@ -114,14 +114,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         // continue with regular logic
         // _POST all relevant data for processes.
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $title = filter_var($title, FILTER_SANITIZE_NUMBER_INT);
-        $artist = filter_var($artist, FILTER_SANITIZE_NUMBER_INT);
-        $producer = filter_var($producer, FILTER_SANITIZE_NUMBER_INT);
-        $creator = filter_var($creator, FILTER_SANITIZE_NUMBER_INT);
-        $genre = filter_var($genre, FILTER_SANITIZE_NUMBER_INT);
-        $description = filter_var($description, FILTER_SANITIZE_NUMBER_INT);
+        $title = filter_var($title, FILTER_SANITIZE_SPECIAL_CHARS);
+        $artist = filter_var($artist, FILTER_SANITIZE_SPECIAL_CHARS);
+        $producer = filter_var($producer, FILTER_SANITIZE_SPECIAL_CHARS);
+        $creator = filter_var($creator, FILTER_SANITIZE_SPECIAL_CHARS);
+        $genre = filter_var($genre, FILTER_SANITIZE_SPECIAL_CHARS);
+        $description = filter_var($description, FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $command = filter_var($command, FILTER_SANITIZE_NUMBER_INT);
+        $command = filter_var($command, FILTER_SANITIZE_SPECIAL_CHARS);
 
 
 
@@ -203,17 +203,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         </audio>
                 <form action="editaudio.php" method="post">
                     <label for="title">title</label>
-                    <input type="text" id="title" name="title" value="<?= htmlspecialchars_decode($audioData['title']); ?>"> 
+                    <input type="text" id="title" name="title" value="<?= htmlspecialchars_decode($audioData['title']); ?>" required> 
                     <label for="artist">artist</label>
-                    <input type="text" id="artist" name="artist" value="<?= htmlspecialchars_decode($audioData['artist']); ?>"> 
+                    <input type="text" id="artist" name="artist" value="<?= htmlspecialchars_decode($audioData['artist']); ?>" required> 
                     <label for="producer">producer</label>
                     <input type="text" id="producer" name="producer" value="<?= htmlspecialchars_decode($audioData['producer']); ?>"> 
                     <label for="creator">creator</label>
                     <input type="text" id="creator" name="creator" value="<?= htmlspecialchars_decode($audioData['creator']); ?>"> 
                     <label for="genre">genre</label>
-                    <input type="text" id="genre" name="genre" value="<?= htmlspecialchars_decode($audioData['genre']); ?>"> 
+                    <input type="text" id="genre" name="genre" value="<?= htmlspecialchars_decode($audioData['genre']); ?>" required> 
                     <label for="description">description</label>
-                    <textarea id="description" name="description" rows="10"><?= htmlspecialchars_decode($audioData['description']) ?></textarea>
+                    <textarea id="description" name="description" rows="10" required><?= htmlspecialchars_decode($audioData['description']) ?></textarea>
                     <input type="hidden" name="id" value="<?= $audioData['id']?>">
                     <div>
                         <input type="submit" name="command" value="Update">
