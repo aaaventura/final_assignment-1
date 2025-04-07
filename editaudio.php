@@ -15,27 +15,30 @@ require('validateadmin.php');
 
 
 
+if($_SERVER["REQUEST_METHOD"] == "GET"){
 
+    $audioId = $_GET['id'];
+    $errors = [];
 
+    if(!is_numeric($audioId)){
+        $errors = "id must be a number";
+    }
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header("Location: invalidinput.php");
+        exit;
+    }
+    else{
+        $audioId = filter_var($audioId, FILTER_SANITIZE_NUMBER_INT);
 
-// get id
-$audioId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-// If $id is not an INT, return to index.php
-if(!$audioId){
-    //header("Location: index.php");
-    echo "not correct value in get";
+        // fetching data from specific row.
+        $query = "SELECT * FROM audio WHERE id = :id";
+        $statement = $db -> prepare($query);
+        $statement -> bindValue( ':id', $audioId, PDO::PARAM_INT);
+        $statement->execute();
+        $audioData = $statement -> fetch(PDO::FETCH_ASSOC);
+    }
 }
-
-// fetching data from specific row.
-$query = "SELECT * FROM audio WHERE id = :id";
-$statement = $db -> prepare($query);
-$statement -> bindValue( ':id', $audioId, PDO::PARAM_INT);
-$statement->execute();
-$audioData = $statement -> fetch(PDO::FETCH_ASSOC);
-
-
-
-
 
 
 function fileExtension($file){
@@ -62,57 +65,112 @@ function fileExtension($file){
 
 
 // after post. either delete or edit.
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
+    $id = $_POST['id'];
+    $title = $_POST['title'];
+    $artist = $_POST['artist'];
+    $producer = $_POST['producer'];
+    $creator = $_POST['creator'];
+    $genre = $_POST['genre'];
+    $description = $_POST['description']; 
 
-// _POST all relevant data for processes.
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$artist = filter_input(INPUT_POST, 'artist', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$producer = filter_input(INPUT_POST, 'producer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$creator = filter_input(INPUT_POST,'creator', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$genre = filter_input(INPUT_POST,'genre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$description = filter_input(INPUT_POST,'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $command = $_POST['command'];
+    $validCommands = ['Update', 'Delete'];
 
-$command = filter_input(INPUT_POST,'command', FILTER_SANITIZE_STRING);
-// Checks for Update command.
+    $errors = [];
 
-
-
-if($command === 'Update'){
     
-    // Updates specific row based on id.
-    $query     = "UPDATE audio SET title = :title, artist = :artist, producer = :producer, creator = :creator, genre = :genre, description = :description WHERE id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':title', $title);
-    $statement->bindValue(':artist', $artist);
-    $statement->bindValue(':producer', $producer);
-    $statement->bindValue(':creator', $creator);
-    $statement->bindValue(':genre', $genre);
-    $statement->bindValue(':description', $description);
-    $statement->bindValue(':id', $id);
-   
-    $statement->execute();
+    if (empty($id) || !is_numeric($id)) {
+        $errors[] = "ID must be a number and cannot be empty.";
+    }
+    
+    if (empty($title)) {
+        $errors[] = "Title cannot be empty.";
+    }
 
-    // Return to index when complete.
-    header("Location: adminpage.php");
+    if (empty($artist)) {
+        $errors[] = "Artist cannot be empty.";
+    }
+
+    if (empty($genre)) {
+        $errors[] = "Genre cannot be empty.";
+    }
+
+    if (empty($description)) {
+        $errors[] = "Description cannot be empty.";
+    }
+    
+    if (!in_array($command, $validCommands)) {
+        $errors[] = "Command must be 'Update' or 'Delete'.";
+    }
+    
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header("Location: invalidinput.php");
+        exit;
+    }
+    else{ 
+        // continue with regular logic
+        // _POST all relevant data for processes.
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $title = filter_var($title, FILTER_SANITIZE_NUMBER_INT);
+        $artist = filter_var($artist, FILTER_SANITIZE_NUMBER_INT);
+        $producer = filter_var($producer, FILTER_SANITIZE_NUMBER_INT);
+        $creator = filter_var($creator, FILTER_SANITIZE_NUMBER_INT);
+        $genre = filter_var($genre, FILTER_SANITIZE_NUMBER_INT);
+        $description = filter_var($description, FILTER_SANITIZE_NUMBER_INT);
+
+        $command = filter_var($command, FILTER_SANITIZE_NUMBER_INT);
+
+
+
+        // check for update
+
+        if($command === 'Update'){
+    
+            // Updates specific row based on id.
+            $query     = "UPDATE audio SET title = :title, artist = :artist, producer = :producer, creator = :creator, genre = :genre, description = :description WHERE id = :id";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':title', $title);
+            $statement->bindValue(':artist', $artist);
+            $statement->bindValue(':producer', $producer);
+            $statement->bindValue(':creator', $creator);
+            $statement->bindValue(':genre', $genre);
+            $statement->bindValue(':description', $description);
+            $statement->bindValue(':id', $id);
+           
+            $statement->execute();
+        
+            // Return to index when complete.
+            header("Location: adminpage.php");
+        }
+        
+        // Elseif Delete command. 
+        elseif($command =='Delete'){
+        
+            // Deletes from specific row based on id.
+            $query = "DELETE FROM audio WHERE id = :id";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':id', $id, PDO::PARAM_INT);
+            $statement->execute();
+        
+            // Return to index when complete.
+            header("Location: adminpage.php");
+        }
+        
+        else{
+            echo "unknown";
+            header("Location: adminpage.php");
+        } 
+        
+
+    }
+
 }
 
-// Elseif Delete command. 
-elseif($command =='Delete'){
 
-    // Deletes from specific row based on id.
-    $query = "DELETE FROM audio WHERE id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':id', $id, PDO::PARAM_INT);
-    $statement->execute();
 
-    // Return to index when complete.
-    header("Location: adminpage.php");
-}
-
-else{
-    echo "unknown";
-} 
 
 
 

@@ -1,16 +1,20 @@
 <?php 
 
-if (isset($_SESSION['role'])) {
-    $role = filter_var($_SESSION['role'], FILTER_SANITIZE_STRING);
-    
+$role = $_SESSION['role'];
+
+
+if (isset($role)) {
+
+    $role = filter_var($role, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
     if (!is_string($role) || empty($role) || $role !== 'admin') {
         header("Location: accessdenied.php");
         exit;
     }
 
-} else {
+}
+else{
     header("Location: accessdenied.php");
     exit;
 }
-
 ?>

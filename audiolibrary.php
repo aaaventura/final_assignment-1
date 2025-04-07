@@ -55,8 +55,7 @@ function fileExtension($file){
 
 
 
-//search database. I think for the rest of the day I'll finish the presentation for OO 
-//this is screwing with my head now.
+//search database. 
 
     $displayQuery = "SELECT * FROM audio order by id DESC";
 

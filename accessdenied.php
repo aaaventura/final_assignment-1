@@ -11,7 +11,6 @@ session_start();
 
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +24,7 @@ session_start();
 </head>
 <body>
 
-    <?php include 'header.php' ?>
+<?php include 'header.php' ?>
 
 
     <main>

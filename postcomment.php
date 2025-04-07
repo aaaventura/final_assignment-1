@@ -99,16 +99,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 
-
-    
-
-
-
-
-function timedateformat($date) {
-    // Format the date to "mm, dd, yyyy, hh:ii am/pm"
-    $formattedDate = date('F d, Y, h:i a', strtotime($date));
-    return $formattedDate;
-}
-
 ?>
