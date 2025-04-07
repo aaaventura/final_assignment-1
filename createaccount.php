@@ -14,61 +14,77 @@ require('connect.php');
 
 
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // gather data.
+    $nameUser = $_POST['nameUser'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
 
-if ($_POST && !empty($_POST['nameUser']) && !empty($_POST['username'])) {
-    // inputs
-    $nameUser = filter_input(INPUT_POST, 'nameUser', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $errors = [];
 
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    // validate
+    if(empty($nameUser)){
+        $errors[] = "Invalid Name: Cannot be empty";
+    }
+    if (!preg_match("/^[a-zA-Z0-9]{2,20}$/", $username)) {
+        $errors[] = "Invalid username. Must be 2-20 characters long and contain only letters and numbers (no spaces or special characters).";
+    }
+   
+    if (strlen($password) < 3) {
+        $errors[] = "Password must be at least 3 characters long.";
+    }
+    
+   
+    if ($role !== "browser") {
+        $errors[] = "Invalid role. It must be 'browser'.";
+    }
 
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-
-
-    // salting and hashing password
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-
-
-
-
-
-    $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
-    $userStatement = $db->prepare($userQuery);
-
-    $userStatement->bindValue(':name', $nameUser);
-    $userStatement->bindValue(':username', $username);
-    $userStatement->bindValue(':password', $hashedPassword);
-    $userStatement->bindValue(':role', $role);
-
-    if($userStatement ->execute()) {
-        echo "success";
-        header("Location: index.php");
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header("Location: invalidinput.php");
+        exit;
     }
     else{
-        echo "failed";
+        
+        // inputs
+        $nameUser = filter_var($nameUser, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $role = filter_var($role, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+
+        // salting and hashing password
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+
+
+        $userQuery = "INSERT INTO users (name, username, password, role) VALUES (:name, :username, :password, :role)";
+        $userStatement = $db->prepare($userQuery);
+
+        $userStatement->bindValue(':name', $nameUser);
+        $userStatement->bindValue(':username', $username);
+        $userStatement->bindValue(':password', $hashedPassword);
+        $userStatement->bindValue(':role', $role);
+
+        if($userStatement ->execute()) {
+            echo "success";
+            header("Location: index.php");
+        }
+        else{
+            echo "failed";
+        }
+
+
     }
 
 
 }
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
 
 ?>
 

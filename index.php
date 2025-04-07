@@ -11,9 +11,7 @@ session_start();
 
 require('connect.php');
 
-
 ?>
-
 
 
 <!DOCTYPE html>
@@ -48,7 +46,7 @@ require('connect.php');
             <input type="password" name="password" placeholder="Password" required>
 
             <canvas id="captcha"></canvas>
-            <input id="textBox" type="text" name="text" required>
+            <input id="textBox" type="text" name="textBox" required>
 
             <button type="submit">Login</button>
         </form>

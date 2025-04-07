@@ -2,30 +2,62 @@
 session_start();
 require('connect.php');
 
+
+
+//before sanitization, validation.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    //validating
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $captcha = $_POST['textBox'];
+   
 
-    // Prepare SQL query
-    $query = "SELECT * FROM users WHERE username = :username";
-    $stmt = $db->prepare($query);
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $errors = [];
 
-    //var_dump($user);
+    if(!preg_match("/^[a-zA-Z0-9_]{3,20}$/", $username)){
+        $errors[] = "Invalid username. Must be 2-20 characters long and contain only letters and numbers (no spaces or special characters).";
+    }
 
-    // Verify password
-    if ($user && password_verify($password, $user['password'])) {
-        // store users in session
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['name'] = $user['name'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role']; 
+    if(strlen($password) < 3){
+        $errors[] = "Password must be at least 3 characters long.";
+    }
 
-        header("Location: index.php"); 
+    if(empty($captcha)){
+        $errors[] = "Captcha must be filled out.";
+    }
+    
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header("Location: invalidinput.php");
         exit;
-    } 
+    }
+    else{
+            // sanitizing
+            $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Prepare SQL query
+            $query = "SELECT * FROM users WHERE username = :username";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            //var_dump($user);
+
+            // Verify password
+            if ($user && password_verify($password, $user['password'])) {
+                // store users in session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['name'] = $user['name'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role']; 
+
+                header("Location: index.php"); 
+                exit;
+            } 
+    }
+    
 }
 
 ?>

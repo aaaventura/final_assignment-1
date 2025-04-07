@@ -1,6 +1,6 @@
 function generateCaptcha() {
     console.log("captcha generated")
-    const characters = 'ABCDEFGHJKLMNPQRTUVWYabcdefghijkmnopqrtuvwy23456789';
+    const characters = 'ABDEFGHJKLMNPQRTUVWYabdefghijkmnopqrtuvwy23456789';
     let captcha = '';
     for (let i = 0; i < 6; i++) {
         captcha += characters.charAt(Math.floor(Math.random() * characters.length));

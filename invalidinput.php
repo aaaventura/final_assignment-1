@@ -10,7 +10,9 @@
 session_start();
 
 
+$errors = $_SESSION['errors'];
 
+//print_r($errors);
 
 ?>
 
@@ -29,9 +31,14 @@ session_start();
 
 
     <main>
-        <h1> Acess Denied.</h1>
-        <p> You do not have access to enter this page.</p>
-        <p> Please return to the homepage: <a href="index.php">Here</a></p>
+        <h1> Invalid Data Input. </h1>
+        <ul>
+        <?php foreach ($errors as $error): ?>
+            <li> <?= $error ?></li> 
+        <?php endforeach; ?>
+        </ul>
+        
+        <p> Return to Home: <a href="index.php">Here</a></p>
 
     </main>
 

@@ -137,10 +137,9 @@ $commentposts = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <textarea id="comment" name="comment" rows="4" cols="50" required></textarea>
                 
                 <canvas id="captcha"></canvas>
-                <input id="textBox" type="text" name="text" required>
+                <input id="textBox" type="text" name="textBox" required>
 
-
-                <button type="submit">Login</button>
+                <button type="submit">Post Comment</button>
             </form>
         </div>
 
