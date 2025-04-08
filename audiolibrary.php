@@ -145,69 +145,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
         <div>
-        
-            <!-- this is where I'll put a php loop or something liek that, y'know?-->
 
-            <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
-                    <p>Search: <?= isset($search) ? $search : "nothing" ?></p>
-                    <p>search By: <?= isset($searchBy) ? $searchBy : "nothing"?></p>
+    <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
 
 
-
-                <?php if(empty($audioFilesData)): ?>
-                    <h1> No files found </h1>
-
-
-                <?php else: ?> 
-                    
-                    
-                    <div class="audioFileDatabaseHeader">
-                        <span>Audio</span>
-                        <span>ID</span>
-                        <span>Title</span>
-                        <span>Artist</span>
-                        <span>Producer</span>
-                        <span>Creator</span>
-                        <span>Genre</span>
-                        <span>Description</span>
-                        <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ): ?>
-                            <span>Actions</span>
-                        <?php endif; ?>
-                        
-
-                    </div>
-                    <?php foreach($audioFilesData as $audioData): ?>
-
-                        <ul class="audioFileDatabase">
-                        
-                            <audio controls>
-                                <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
-                                your browser does not support the audio element
-                            </audio>
-                            <li><?=$audioData['id'] ?></li>
-                            <li><a href="audiopage.php?id=<?=$audioData['id']?>"><?=$audioData['title'] ?></a></li>
-                            <li><?=$audioData['artist'] ?></li>
-                            <li><?=$audioData['producer'] ?></li>
-                            <li><?=$audioData['creator'] ?></li>
-                            <li><?=$audioData['genre'] ?></li>
-                            <li><?=$audioData['description'] ?></li>
-
-                            <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ):  ?>
-                            <li><a href="employeedownload.php?id=<?=$audioData['id']?>">DOWNLOAD</a></li>
-                            <?php endif; ?>
+        <p>Search: <?= isset($search) ? $search : "nothing" ?></p>
+        <p>Search By: <?= isset($searchBy) ? $searchBy : "nothing" ?></p>
 
 
-                        </ul>
-                    <?php endforeach; ?>
 
-                <?php endif; ?>
+        <?php if(empty($audioFilesData)): ?>
+            <h1> No files found </h1>
+        <?php endif; ?>
 
 
-                    
-            <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if(!empty($audioFilesData)): ?>
+
+        <div class="audioFileDatabaseHeader">
+
+
+            <span>Audio</span>
+            <span>ID</span>
+            <span>Title</span>
+            <span>Artist</span>
+            <span>Producer</span>
+            <span>Creator</span>
+            <span>Genre</span>
+            <span>Description</span>
 
             
+            <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ): ?>
+                <span>Actions</span>
+            <?php endif; ?>
+
         </div>
+
+
+        <?php foreach($audioFilesData as $audioData): ?>
+            <ul class="audioFileDatabase">
+
+
+                <audio controls>
+                    <source src="<?=$audioData['fileLocation']?>" type="<?php fileExtension($audioData['fileLocation'])?>">
+                    Your browser does not support the audio element.
+                </audio>
+
+
+                <li><?=$audioData['id']?></li>
+                <li><a href="audiopage.php?id=<?=$audioData['id']?>"><?=$audioData['title']?></a></li>
+                <li><?=$audioData['artist']?></li>
+                <li><?=$audioData['producer']?></li>
+                <li><?=$audioData['creator']?></li>
+                <li><?=$audioData['genre']?></li>
+                <li><?=$audioData['description']?></li>
+
+
+
+                <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ): ?>
+                    <li><a href="employeedownload.php?id=<?=$audioData['id']?>">DOWNLOAD</a></li>
+                <?php endif; ?>
+
+            </ul>
+
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+
+</div>
         
 
     </main>

@@ -1,6 +1,6 @@
 function generateCaptcha() {
     console.log("captcha generated")
-    const characters = 'ABDEFGHJKLMNPQRTVWYabdefghijkmnopqrtvwy23456789';
+    const characters = 'ABDEFGHJKLMNPQRTVWYabdefghijkmnpqrtvwy23456789';
     let captcha = '';
     for (let i = 0; i < 6; i++) {
         captcha += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -44,6 +44,7 @@ function drawCaptcha(captcha) {
         
         const angle = Math.random() * 0.2 - 0.1; 
         const scale = 1 + Math.random() * 0.3 - 0.15; 
+
         ctx.translate(charX, charY);
         ctx.rotate(angle);
         ctx.scale(scale, scale);
@@ -72,19 +73,26 @@ function load(){
     const captcha = generateCaptcha();
     drawCaptcha(captcha);
 
+
+
     const form = document.querySelector('form');
     console.log(form);
+
+
+
+
     form.addEventListener('submit', function(event) {
 
         console.log("submit button hit");
+    
         const userInput = document.getElementById('textBox').value;
-
+    
+        // if captcha fails
         if (userInput !== captcha) {
             console.log("if statement hit");
             event.preventDefault();
 
             alert('Incorrect CAPTCHA. Please try again.');
-
         }
     });
 

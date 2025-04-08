@@ -15,6 +15,7 @@ require('connect.php');
 // checks login credentials
 require('validateadmin.php');
 
+// todo styles for everything now? finally?
 
 // validate get
 

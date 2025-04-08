@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nameUser = $_POST['nameUser'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $reenterPassword = $_POST['reenterPassword'];
     $role = $_POST['role'];
 
     $errors = [];
@@ -36,6 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Password must be at least 3 characters long.";
     }
     
+    if ($password !== $reenterPassword) {
+        $errors[] = "Passwords do not match.";
+    }
    
     if ($role !== "browser") {
         $errors[] = "Invalid role. It must be 'browser'.";
@@ -110,12 +114,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <form action="#" method="post">
                     <h1>Create an account</h1>
+
                     <label for="nameUser">Name</label>
                     <input type="text" id="nameUser" name="nameUser" > 
+
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" > 
+
                     <label for="password">Password</label>
                     <input type="text" id="password" name="password" > 
+
+                    <label for="reenterPassword">Re-enter Password</label>
+                    <input type="text" id="reenterPassword" name="reenterPassword" > 
+
                     <input type="hidden" id="role" name="role" value="browser"> 
                 
                 

@@ -11,6 +11,14 @@ session_start();
 
 require('connect.php');
 
+if(isset($_SESSION['name'])){
+    $sessionName = $_SESSION['name'];
+}
+
+
+
+
+
 ?>
 
 
@@ -32,11 +40,11 @@ require('connect.php');
 
     <main>
 
-        <?php if (!isset($_SESSION['name'])): ?>
-                    
-                <?php endif; ?>
 
-        <?php if(isset($_SESSION['name'])): ?>
+
+        <?php if(isset($sessionName)): ?>
+
+            <p>You are logged in as: <?= $sessionName?></p>
             <p><a href="logout.php">log out</a></p>
 
         <?php else:?>
