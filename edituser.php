@@ -16,20 +16,6 @@ require('connect.php');
 require('validateadmin.php');
 
 
-
-// get id
-
-// validate id
-
-//todo, where i last ended off. finishing up all validation. 
-// have to finish all inputs. 
-// then the file input for both artists and admin pages. 
-// then do validation of all ID gets and posts. and that should be it. 
-// I will move all validated pages to the right and keep moving from the left.
-//after, also do "
-
-
-
 // validate get
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -139,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         if($command === 'Update'){
             
             // Updates specific row based on id.
-            $query     = "UPDATE users SET name = :nameUser, username = :username, password = :password, role = :role WHERE id = :id";
+            $query = "UPDATE users SET name = :nameUser, username = :username, password = :password, role = :role WHERE id = :id";
 
         
             

@@ -148,6 +148,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         
         // Elseif Delete command. 
         elseif($command =='Delete'){
+
+            // retrieve file path
+            $query = "SELECT fileLocation FROM audio WHERE id = :id";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':id', $id, PDO::PARAM_INT);
+            $statement->execute();
+            $file = $statement->fetch(PDO::FETCH_ASSOC);
+            //echo $file;
+
+            if($file){
+                    $filePath = $file['fileLocation'];
+                    //echo $filePath;
+
+                    if(file_exists($filePath)){
+                        unlink($filePath);
+                    }
+            }
+
+
         
             // Deletes from specific row based on id.
             $query = "DELETE FROM audio WHERE id = :id";
@@ -155,6 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $statement->bindValue(':id', $id, PDO::PARAM_INT);
             $statement->execute();
         
+
             // Return to index when complete.
             header("Location: adminpage.php");
         }

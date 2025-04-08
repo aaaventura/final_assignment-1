@@ -9,8 +9,10 @@
 ****************/
 session_start();
 
+if(!isset($_SESSION['errors'])){
+    $errors = $_SESSION['errors'];
+}
 
-$errors = $_SESSION['errors'];
 
 //print_r($errors);
 
