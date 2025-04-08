@@ -16,15 +16,6 @@ if(isset($_SESSION['name'])){
 }
 
 
-// todo
-// we gotta figure out how to make captcha validation on client side.
-// then we have to... do css? 
-//actually, right now, i'm gonna see what I can do that's realistic withing the scope. 
-// if I can't add any more features within a realistic time, then I'll do styles and 
-// spend the rest of my time making this thing look nice.
-// another thing i can add is the search bar at the top of every page. that's something I completely forgot to add
-// it won't be hard to implement either, I can put it in the header.php and have it redirect to the search page like always.
-// it can be easy as a post too which is already the input I am taking in. 
 
 
 ?>
@@ -57,12 +48,12 @@ if(isset($_SESSION['name'])){
 
         <?php else:?>
             <script src="captcha.js"></script>
-            <form action="login.php" method="POST">
+            <form id="login"action="login.php" method="POST">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
 
-            <canvas id="captcha"></canvas>
-            <input id="textBox" type="text" name="textBox" required>
+            <img src="generatecaptcha.php" alt="Captcha Image">
+            <input id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
 
             <button type="submit">Login</button>
         </form>

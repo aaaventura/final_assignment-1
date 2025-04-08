@@ -25,9 +25,7 @@ validateSessionRole($allowedRoles);
 
 
 //for comment section
-
 //filling a comment
-
 // Checks if title and post are empty.
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -39,6 +37,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $comment = $_POST['comment'];
     $currentTimestamp = date('Y-m-d H:i:s');
     $captcha = $_POST['textBox'];
+
+    $captchasession = $_SESSION['captcha'];
 
     $errors = [];
     
@@ -56,8 +56,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $errors[] = "Invalid Comment. Must not be empty.";
     }
 
-    if(empty($captcha)){
-        $errors[] = "Captcha must be filled out.";
+    if(empty($captcha) || $captcha != $captchasession){
+        $errors[] = "Captcha filled out incorrectly.";
+
+        // store comment input in session
+        $_SESSION['comment'] = $comment;
+
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit;
     }
 
     if (!empty($errors)) {

@@ -33,7 +33,7 @@ if(isset($_SESSION['errors'])){
 
 
     <main>
-        <h1> Invalid Data Input. </h1>
+        <h1> Invalid Input. </h1>
         <ul>
         <?php foreach ($errors as $error): ?>
             <li> <?= $error ?></li> 

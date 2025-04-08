@@ -87,6 +87,14 @@ function fileExtension($file){
 
 
 
+// setting old comment
+$oldComment = "";
+if (isset($_SESSION['comment'])) {
+    $oldComment = $_SESSION['comment'];
+    echo $oldComment;
+
+    unset($_SESSION['comment']);
+}
 
 
 
@@ -143,10 +151,14 @@ function fileExtension($file){
                 <input type="hidden" name="audioid" value="<?= $audioData['id'] ?>">
     
                 <label for="comment">Comment:</label>
-                <textarea id="comment" name="comment" rows="4" cols="50" required></textarea>
+                <textarea id="comment" name="comment" rows="4" cols="50" required><?= $oldComment ?? null ?></textarea>
+            
+                <?php if (!empty($oldComment)): ?>
+                    <p >Captcha filled out incorrectly. Please try again.</p>
+                <?php endif; ?>
                 
-                <canvas id="captcha"></canvas>
-                <input id="textBox" type="text" name="textBox" required>
+                <img src="generatecaptcha.php" alt="Captcha Image">
+                <input id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
 
                 <button type="submit">Post Comment</button>
             </form>

@@ -10,6 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $captcha = $_POST['textBox'];
+
+    $captchasession = $_SESSION['captcha'];
    
 
     $errors = [];
@@ -22,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Password must be at least 3 characters long.";
     }
 
-    if(empty($captcha)){
-        $errors[] = "Captcha must be filled out.";
+    if(empty($captcha) || $captcha != $captchasession){
+        $errors[] = "Captcha filled out incorrectly.";
     }
     
     if (!empty($errors)) {
