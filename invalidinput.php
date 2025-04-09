@@ -28,7 +28,7 @@ if(isset($_SESSION['errors'])){
     <title>Homepage</title>
 </head>
 <body>
-
+<div id="page-border">
     <?php include 'header.php' ?>
 
 
@@ -45,6 +45,7 @@ if(isset($_SESSION['errors'])){
     </main>
 
     <?php include 'footer.php' ?>
+    </div>
 </body>
 </html>
 

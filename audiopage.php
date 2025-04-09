@@ -111,7 +111,7 @@ if (isset($_SESSION['comment'])) {
     <script src="captcha.js"></script>
 </head>
 <body>
-
+<div id="page-border">
     <?php include 'header.php' ?>
 
 
@@ -194,6 +194,6 @@ if (isset($_SESSION['comment'])) {
     </main>
 
     <?php include 'footer.php' ?>
-    
+    </div>
 </body>
 </html>

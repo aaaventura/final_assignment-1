@@ -1,53 +1,46 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background-color: #f4f4f4;
-    
-}
-
-header {
-    background-color: #ee0d0d;
-    color: white;
-    padding: 20px;
-}
-
-main {
-    padding: 20px;
-}
-
-footer {
-    background-color: #991414;
-    color: white;
-    padding: 10px;
-    
-    background-color: aquamarine;
-    bottom: 0;
-    width: 100%;
-}
 
 
-a{
-    text-decoration: none;
-}
+ /* todo all pages requiring styles:
+ - index
+ - header
+ - footer
+ - login
+ - audiopage
+ - adminpage
+ - accessdenied
+ - audiolibrary
+ - createaccount
+ - invalidinput
+ - edituser
+ - editaudio
+ - artistpage
+
+ shouldn't be too bad. some of the pages will reuse some old styles and elements. 
+ like the simple ones like access denied, invalid input... those will be the same
+
+ pages with similar design would be like 
+    index
+    artist page
+    edit audio
+    create account
+ all of these are just a single input and I can organize it all similarly.
+
+ ones that might be difficult for me woudl be 
+    audiolibrary
+    adminpage
+because they display a lot and I have to figure out how to display all of them.
+
+but for now, I'm going to see how everythign looks inside the primary div border.
+it looks bad. 
+no worries. just gotta modify all the pages to fit in the box.
+ */
 
 
-nav ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-    display: flex; /* Use flexbox to align items in a row */
-}
 
-nav ul li {
-    margin-right: 20px; /* Add space between items */
-}
 
-nav ul li a {
-    text-decoration: none; /* Remove underline from links */
-    color: #000; /* Set link color */
-}
+
+
+
 
 
 .audioFileDatabaseContainer {
@@ -92,5 +85,209 @@ nav ul li a {
 .login{
     display: flex;
 }
+
+
+
+
+/* new stuff refined */
+html, body{
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    min-height: 100%;
+    box-sizing: border-box;
+   }
+
+
+body{
+    
+    font-family: Arial, sans-serif;
+    margin: 0;
+   
+    text-align: center;
+    background-color: #FDECEF;
+
+    border: #0F110C 1px solid;
+    min-height: 100%;
+    
+    padding: 40px 0; 
+    
+} 
+
+a{
+    text-decoration: none;
+}
+
+
+#page-border{
+    margin: 0 auto;
+    max-width: 1000px;
+    min-height: 100%;
+    border: #0F110C 2px solid; 
+    border-radius: 4px;
+    
+    position: relative;
+    
+    
+    
+    
+}
+
+/* header */
+header {
+    background-color: #9D6381;
+    color: white;
+    
+}
+
+    div#head-title{
+        padding-top: 10px;
+        
+        
+    }
+
+    section#header-elements{
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        /* border: #991414 1px solid; */
+        
+    }
+        nav#navigation{
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+
+            
+            flex: 2;
+             /* border: #991414 1px solid;  */
+        }
+            
+            nav#navigation ul {
+                list-style-type: none; 
+                width: 100%;
+                padding: 0;
+                margin: 0; 
+                display: flex; 
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+                nav#navigation ul li {
+                    border: #0F110C 2px solid;
+                    border-radius: 3px;
+                    background-color: #6F3C51;
+                    margin: 0px 10px;
+                    flex: 3;
+                }
+
+                nav#navigation ul li:hover {
+                    border: #0F110C 2px solid;
+                    border-radius: 3px;
+                    background-color: #f079aa;
+                    margin: 0px 10px;
+                    flex: 3;
+                }
+
+                nav#navigation ul li#nav-selected {
+                    margin: 0px 10px;
+                    background-color: #CECCCC;
+                    flex: 3;
+                    
+                }
+
+                nav#navigation ul li#nav-selected a{
+                    color: #0F110C;
+                }
+                
+
+                    nav#navigation ul li a {
+                        display: block;
+                        text-decoration: none; 
+                        color: #FDECEF; 
+                    }
+                    nav#navigation ul li a:hover {
+                        display: block;
+                        text-decoration: none; 
+                        color: #0F110C; 
+                    }
+
+    
+        form#universal-search{
+            flex: 1;
+
+            display: flex;
+            justify-content: center;
+
+            width: 50%;
+
+        /* border: #991414 1px solid; */
+        }
+            form#universal-search fieldset{
+                display: flex;
+            }
+            
+
+
+/* content of index */
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#section-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+    #log-out{
+        width: 40%;
+        background-color: #6F3C51;
+        border: #0F110C 2px solid;
+        border-radius: 3px;
+    }
+    #log-out:hover{
+        width: 40%;
+        background-color: #f079aa;
+    }
+       
+        #link-button{
+            color: #FDECEF ;
+            display: block;
+            padding: 4px;
+        }
+        #link-button:hover{
+            color: #0F110C ;
+            display: block;
+            padding: 4px;
+        }
+            
+            
+
+
+
+
+/* Footer */
+
+footer{
+    align-self: center;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    background-color: #9D6381;
+    bottom: 0;
+   
+    box-sizing: border-box;
+    position: absolute;
+    text-align: center;
+}
+
+/* index page */
+
+
 
 

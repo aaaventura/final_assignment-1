@@ -273,7 +273,7 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
     <title>Homepage</title>
 </head>
 <body>
-
+    <div id="page-border">
     <?php include 'header.php' ?>
 
 
@@ -388,6 +388,7 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
     </main>
 
     <?php include 'footer.php' ?>
+    </div>
 </body>
 </html>
 

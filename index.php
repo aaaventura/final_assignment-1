@@ -34,42 +34,49 @@ if(isset($_SESSION['name'])){
     <title>Homepage</title>
 </head>
 <body>
-
-    <?php include 'header.php' ?>
-
-    <main>
+    <div id="page-border">
+        <?php include 'header.php' ?>
 
 
+        
+        <main>
+            <?php if(isset($sessionName)): ?>
 
-        <?php if(isset($sessionName)): ?>
+                <section id="section-container">
+                    <p>You are logged in as: <?= $sessionName?></p>
+                    <div id="log-out">
+                        <a id="link-button" href="logout.php">log out</a>
+                    </div>
+                    
+                </section>
+                
 
-            <p>You are logged in as: <?= $sessionName?></p>
-            <p><a href="logout.php">log out</a></p>
+            <?php else:?>
+                
+                <form id="login"action="login.php" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
 
-        <?php else:?>
-            <script src="captcha.js"></script>
-            <form id="login"action="login.php" method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
+                <img src="generatecaptcha.php" alt="Captcha Image">
+                <input id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
 
-            <img src="generatecaptcha.php" alt="Captcha Image">
-            <input id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
-
-            <button type="submit">Login</button>
-        </form>
+                <button type="submit">Login</button>
+            </form>
 
 
-        <div>
-            <p>No account?</p>
-            <p><a href="createaccount.php">Create Account</a></p>
-        </div>
+            <div>
+                <p>No account?</p>
+                <p><a href="createaccount.php">Create Account</a></p>
+            </div>
 
-        <?php endif; ?>
+            <?php endif; ?>
 
-    </main>
+        </main>
 
-   <?php include 'footer.php' ?>
-    
+
+        <?php include 'footer.php' ?>
+    </div>
+
 </body>
 </html>
 

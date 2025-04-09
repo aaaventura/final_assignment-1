@@ -23,7 +23,7 @@ session_start();
     <title>Homepage</title>
 </head>
 <body>
-
+<div id="page-border">
 <?php include 'header.php' ?>
 
 
@@ -35,6 +35,7 @@ session_start();
     </main>
 
     <?php include 'footer.php' ?>
+    </div>
 </body>
 </html>
 

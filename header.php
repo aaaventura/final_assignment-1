@@ -32,33 +32,47 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
 
 <header>
-    <h1><a href="index.php">Audio Library Database</a></h1>
-    <nav>
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <?php if(isset($_SESSION['role']) && in_array($role, $librarypermissions)): ?>
-                <li><a href="audiolibrary.php">Search Library</a></li> 
-            <?php endif; ?>
+    <div id="head-title">
+        
+        <h1 id="mainHeader"><a href="index.php">Audio Library Database</a></h1>
+    </div>
+    
+    <section id="header-elements">
+        <nav id="navigation">
+            <ul>
+                <li <?= ($currentPage == "index.php") ? 'id="nav-selected"' : ''; ?>><a href="index.php" >Home</a></li>
+                <?php if(isset($_SESSION['role']) && in_array($role, $librarypermissions)): ?>
+                    <li <?= ($currentPage == "audiolibrary.php") ? 'id="nav-selected"' : ''; ?>><a href="audiolibrary.php">Search Library</a></li> 
+                <?php endif; ?>
 
-            <?php if(isset($_SESSION['role']) && in_array($role, $artistpermissions)): ?>
-                <li><a href="artistpage.php">Artists Upload</a></li>
-            <?php endif; ?>
-            
-            <?php if(isset($_SESSION['role']) && $role === 'admin'): ?>
-                <li><a href="adminpage.php">admin</a></li>
-            <?php endif; ?>
-        </ul>
+                <?php if(isset($_SESSION['role']) && in_array($role, $artistpermissions)): ?>
+                    <li <?= ($currentPage == "artistpage.php") ? 'id="nav-selected"' : ''; ?>><a href="artistpage.php">Artists Upload</a></li>
+                <?php endif; ?>
+                
+                <?php if(isset($_SESSION['role']) && $role === 'admin'): ?>
+                    <li <?= ($currentPage == "adminpage.php") ? 'id="nav-selected"' : ''; ?>><a href="adminpage.php">admin</a></li>
+                <?php endif; ?>
+            </ul> 
+        </nav>
+
         <?php if(isset($_SESSION['role']) && $currentPage != 'audiolibrary.php'): ?>
-            <form action="audiolibrary.php" method="POST">
-                <label for="search">Search Database</label>
-                <input type="text" id="search" name="search" required> <br>
-                <input type="radio" name="searchBy" id="title" value="title" checked/> <label for="title">Title</label><br />
-                <input type="radio" name="searchBy" id="artist" value="artist" /> <label for="artist">artist</label><br />
-                <input type="radio" name="searchBy" id="genre" value="genre" /> <label for="genre">Genre</label><br />
+
+            <form id="universal-search" action="audiolibrary.php" method="POST">
+                <div>
+                    <label for="search">Search Database</label>
+                    <input type="text" id="search" name="search" required> <br>
+                </div>
+                <fieldset>
+                    <input type="radio" name="searchBy" id="title" value="title" checked/> <label for="title">Title</label><br />
+                    <input type="radio" name="searchBy" id="artist" value="artist" /> <label for="artist">artist</label><br />
+                    <input type="radio" name="searchBy" id="genre" value="genre" /> <label for="genre">Genre</label><br />
+                </fieldset>
+                
                 <input type="submit" name="submit">
             </form>
         <?php endif; ?>
-    </nav>
+    </section>
+    
 </header>
 
 

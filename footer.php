@@ -10,7 +10,8 @@
 ?>
 
 <footer>
-    <p>&copy; 2025 My Audio Library CMS. All rights reserved.</p>
+    <p>2025 Audio Library Database. No rights reserved.</p>
+    <p>CMS Created by Ahleeryan-Joe Ventura</p>
 </footer>
     
 

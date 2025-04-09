@@ -10,22 +10,17 @@
 session_start();
 require('connect.php');
 
-
-
 // verifying user
 $allowedRoles = ['admin', 'artist', 'employee', 'browser'];
 
 require('validaterole.php');
 validateSessionRole($allowedRoles);
 
+//todo: 
+//final stuff to do is CSS; make it look pretty. good luck.
 
 
-
-
-
-
-//for comment section
-//filling a comment
+// for comment section
 // Checks if title and post are empty.
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -79,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
         $comment = filter_var($comment, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
-        //$currentTimestamp = date('Y-m-d H:i:s');
+        
     
       
         $query = "INSERT INTO comments (audioid, username, comment, timestamp) VALUES (:audioid, :username, :comment, :timestamp)";

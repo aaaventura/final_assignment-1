@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Homepage</title>
 </head>
 <body>
-
+<div id="page-border">
     <?php include 'header.php' ?>
 
 
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </main>
 
     <?php include 'footer.php' ?>
-    
+    </div>
 </body>
 </html>
 
