@@ -21,12 +21,6 @@ validateSessionRole($allowedRoles);
 
 //echo in_array($_SESSION['role'], $adminemployee);
 
-
-
-
-
-
-
 // diaply audio database. 
 // finding path data.
 function fileExtension($file){
@@ -48,7 +42,6 @@ function fileExtension($file){
 }
 
 //search database. 
-
 $displayQuery = "SELECT * FROM audio order by id DESC";
 
 $displayStatement = $db -> prepare($displayQuery);
@@ -56,8 +49,6 @@ $displayStatement = $db -> prepare($displayQuery);
 $displayStatement -> execute();
 
 $audioFilesData = $displayStatement -> fetchAll(PDO::FETCH_ASSOC);
-
-
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -100,11 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $statement -> execute();
 
         $audioFilesData = $statement -> fetchAll(PDO::FETCH_ASSOC);
-
-
     }
-
-
 }
 
 
@@ -163,14 +150,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <p class="black-text">Search: <?= isset($search) ? $search : "nothing" ?></p>
                         <p class="black-text">Search By: <?= isset($searchBy) ? $searchBy : "nothing" ?></p>
                     </div>
-                    
-
-
 
                     <?php if(empty($audioFilesData)): ?>
                         <h1> No files found </h1>
                     <?php endif; ?>
-
 
                 <?php endif; ?>
 

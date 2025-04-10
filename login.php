@@ -85,7 +85,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div id="link-section">
             <a id="link-button" href="index.php">Return Home</a>
         </div>
-
     </main>
 
     <?php include 'footer.php' ?>

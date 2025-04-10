@@ -7,6 +7,12 @@
     Description: Index for first page assignment
 
 ****************/
+
+// what I have to do now is just clean up all the code. 
+// I'm just going to open them all up, and close them once I've completed their refinement
+// sounds good. 
+
+
 session_start();
 
 require('connect.php');

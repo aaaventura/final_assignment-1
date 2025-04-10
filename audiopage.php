@@ -64,10 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 }
 
 
-
-
-
-
 function fileExtension($file){
 
     $mimeTypes = [
@@ -86,7 +82,6 @@ function fileExtension($file){
 }
 
 
-
 // setting old comment
 $oldComment = "";
 if (isset($_SESSION['comment'])) {
@@ -95,7 +90,6 @@ if (isset($_SESSION['comment'])) {
 
     unset($_SESSION['comment']);
 }
-
 
 
 ?>
@@ -114,11 +108,8 @@ if (isset($_SESSION['comment'])) {
     <div id="page-border">
         <?php include 'header.php' ?>
 
-
         <main>
         
-
-            
             <section class="audio-container">
                 <audio controls>
                             <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
@@ -140,15 +131,7 @@ if (isset($_SESSION['comment'])) {
                     
                 </div>
             </section>
-            
-
-
-
-
-
-
-
-
+        
 
             <section id="comments-section">
 
@@ -200,8 +183,6 @@ if (isset($_SESSION['comment'])) {
             </section>
 
 
-            
-            
         </main>
 
         <?php include 'footer.php' ?>

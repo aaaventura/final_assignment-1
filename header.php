@@ -17,19 +17,12 @@ if (isset($role)){
     }
 
 
-
 $librarypermissions = ['admin', 'artist', 'employee', 'browser'];
 $artistpermissions = ['admin', 'artist'];
 
-
-
 $currentPage = basename($_SERVER['PHP_SELF']);
 
-
 ?>
-
-
-
 
 <header>
     <div id="head-title">

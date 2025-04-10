@@ -44,10 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
         if (in_array($fileMimeType, $allowedMimeTypes)) {
+            $errors = [];
 
             // file size limit
-            if($_FILES['audio']['size'] > 50000000){
-                echo "File size exceeds limit: 50MB";
+            if($_FILES['audio']['size'] > 20000000){
+                $errors[] = "File size exceeds maximum: 20MB";
             }
 
             $destination = $uploadDirectory . $fileName;
@@ -64,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $description = $_POST['description']; 
 
 
-                $errors = [];
+                
 
 
                 if (empty($title)) {

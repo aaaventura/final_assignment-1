@@ -109,8 +109,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <main>
         
 
-           
-                
 
                 <form id="create-account" action="#" method="post">
                     <h1>Create an account</h1>

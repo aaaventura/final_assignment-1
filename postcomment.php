@@ -16,8 +16,7 @@ $allowedRoles = ['admin', 'artist', 'employee', 'browser'];
 require('validaterole.php');
 validateSessionRole($allowedRoles);
 
-//todo: 
-//final stuff to do is CSS; make it look pretty. good luck.
+
 
 
 // for comment section

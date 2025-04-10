@@ -12,16 +12,11 @@ session_start();
 require('connect.php');
 
 
-
-
-
 // checks login credentials
 $allowedRoles = ['admin', 'employee'];
 
 require('validaterole.php');
 validateSessionRole($allowedRoles);
-
-
 
 // get id
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){

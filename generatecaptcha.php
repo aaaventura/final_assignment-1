@@ -29,7 +29,6 @@ generateCaptcha();
     
 header("Content-type: image/png");
 
-
 // image and background
 $image = imagecreate(200, 60);
 $background = imagecolorallocate($image, 255, 255, 255); 
@@ -43,8 +42,6 @@ for ($i = 0; $i < 1500; $i++) {
     $dotColor = imagecolorallocate($image, rand(150, 255), rand(150, 255), rand(150, 255));
     imagesetpixel($image, rand(0, 200), rand(0, 60), $dotColor);
 }
-
-
 
 // draw captcha
 $captcha = $_SESSION['captcha'];
@@ -65,7 +62,5 @@ for ($i = 0; $i < strlen($captcha); $i++) {
 // generate
 imagepng($image);
 imagedestroy($image);
-
-
 
 ?>
