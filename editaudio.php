@@ -175,8 +175,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $statement->execute();
         
 
+
+            // deleting all comments corresponding to audio
+            $query = "DELETE FROM comments WHERE audioid = :audioid";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':audioid', $id, PDO::PARAM_INT);
+            $statement->execute();
+
+
+
             // Return to index when complete.
             header("Location: adminpage.php");
+
+
+
+            
+
         }
         
         else{

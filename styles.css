@@ -5,44 +5,18 @@
  - header done
  - footer done
  - login done
- - audiopage 
- - adminpage 
- - accessdenied 
- - audiolibrary 
- - createaccount
- - invalidinput
- - edituser
- - editaudio
+ - audiopage done
+ - adminpage done
+ - accessdenied done
+ - audiolibrary done
+ - createaccount done
+ - invalidinput done
+ - edituser done
+ - editaudio done
  - artistpage done
+ yay
 
- shouldn't be too bad. some of the pages will reuse some old styles and elements. 
- like the simple ones like access denied, invalid input... those will be the same
-
- pages with similar design would be like 
-    index
-    artist page
-    edit audio
-    create account
- all of these are just a single input and I can organize it all similarly.
-
- ones that might be difficult for me woudl be 
-    audiolibrary
-    adminpage
-because they display a lot and I have to figure out how to display all of them.
-
-but for now, I'm going to see how everythign looks inside the primary div border.
-it looks bad. 
-no worries. just gotta modify all the pages to fit in the box.
  */
-
-
-
-
-
-
-
-
-
 
 
 
@@ -58,12 +32,15 @@ html, body{
     padding: 0px;
     min-height: 100%;
     box-sizing: border-box;
-    border: #991414 5px solid;
+    /* border: #991414 5px solid; */
     width: 100%;
     height: 100%;
    }
 
-
+html {
+    scrollbar-width: thin; 
+    scrollbar-color: #865069 #6F3C51; 
+}
 
 input, textarea{
     border-radius: 5px;
@@ -105,6 +82,8 @@ a:hover {
 
 ul, li{
     list-style: none;
+    margin: 5px 0px ;
+    padding: 5px 0px;
 }
 
 

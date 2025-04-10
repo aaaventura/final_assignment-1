@@ -160,8 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
                     <div id="search-elements">
-                        <p>Search: <?= isset($search) ? $search : "nothing" ?></p>
-                        <p>Search By: <?= isset($searchBy) ? $searchBy : "nothing" ?></p>
+                        <p class="black-text">Search: <?= isset($search) ? $search : "nothing" ?></p>
+                        <p class="black-text">Search By: <?= isset($searchBy) ? $searchBy : "nothing" ?></p>
                     </div>
                     
 
