@@ -137,7 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -159,10 +158,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <input type="text" id="username" name="username" value="<?= htmlspecialchars_decode($userData['username']); ?>" required> 
             <input type="text" id="password" name="password" value="" required> 
             <select id="role" name="role">
-                <option value="admin" <?php echo ($defaultChoice == "admin") ? "selected" : "";?>>  Admin</option>
-                <option value="employee" <?php echo ($defaultChoice == "employee") ? "selected" : "";?>>Employee</option>
-                <option value="artist" <?php echo ($defaultChoice == "artist") ? "selected" : "";?>>Artist</option>
-                <option value="browser" <?php echo ($defaultChoice == "browser") ? "selected" : "";?>>Browser</option>
+                <option value="admin" <?= ($defaultChoice == "admin") ? "selected" : "";?>>  Admin</option>
+                <option value="employee" <?= ($defaultChoice == "employee") ? "selected" : "";?>>Employee</option>
+                <option value="artist" <?= ($defaultChoice == "artist") ? "selected" : "";?>>Artist</option>
+                <option value="browser" <?= ($defaultChoice == "browser") ? "selected" : "";?>>Browser</option>
             </select>
             <input type="hidden" name="id" value="<?= $userData['id']?>">
             <div>
