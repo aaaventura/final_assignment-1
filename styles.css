@@ -9,7 +9,7 @@ html, body{
     height: 100%;
    }
 
-html {
+html{
     scrollbar-width: thin; 
     scrollbar-color: #865069 #6F3C51; 
 }
@@ -20,36 +20,30 @@ input, textarea{
 }
 
 body{
-    
     font-family: Arial, sans-serif;
     margin: 0;
-   
     text-align: center;
     background-color: #FDECEF;
     display: block;
-
-    /* border: #709c2e 50px solid; */
-
     padding: 30px 0; 
-
-    
-    
 } 
 
 p{
     color: #FDECEF;
 }
+
 p.black-text{
     color: #0F110C;
 }
+
 a{
     color: #FDECEF; 
     text-decoration: none; 
 }
 
-a:hover {
-    color: #0F110C; /* Optional: Change color when hovered */
-    text-decoration: underline; /* Optional: Add underline on hover */
+a:hover{
+    color: #0F110C; 
+    text-decoration: underline;
 }
 
 ul, li{
@@ -57,7 +51,6 @@ ul, li{
     margin: 5px 0px ;
     padding: 5px 0px;
 }
-
 
 select{
     border-radius: 5px;
@@ -77,6 +70,7 @@ button{
     font-size: 16px;
     cursor: pointer;
 }
+
     button:hover{
         background-color: #f079aa; 
         color: #0F110C;
@@ -89,47 +83,33 @@ button{
     border: #6F3C51 2px solid; 
     border-radius: 20px 20px 0px 0px ;
     box-shadow: 0 4px 6px #865069; 
-    
-    /* position: relative; */
-
     display: flex;
     flex-direction: column;
-    
-    
-    
 }
 
 /* header */
 header {
     background-color: #9D6381;
     color: white;
-    
 }
 
     div#head-title{
         padding-top: 10px;
-        
-        
     }
 
     section#header-elements{
         display: flex;
         align-items: center;
         padding: 10px;
-        /* border: #991414 1px solid; */
-        
     }
         nav#navigation{
             display: flex;
             width: 100%;
             justify-content: space-evenly;
-
-            
             flex: 2;
-             /* border: #991414 1px solid;  */
         }
             
-            nav#navigation ul {
+            nav#navigation ul{
                 list-style-type: none; 
                 width: 100%;
                 padding: 0;
@@ -139,8 +119,7 @@ header {
                 justify-content: space-evenly;
             }
 
-                nav#navigation ul li {
-                    /* border: #0F110C 2px solid; */
+                nav#navigation ul li{
                     border-radius: 3px;
                     background-color: #6F3C51;
                     margin: 0px 10px;
@@ -152,28 +131,24 @@ header {
                     align-items: center;    
                 }
 
-                nav#navigation ul li:hover {
-                    /* border: #0F110C 2px solid; */
+                nav#navigation ul li:hover{
                     border-radius: 3px;
                     background-color: #f079aa;
                     margin: 0px 10px;
                     flex: 3;
                 }
 
-                nav#navigation ul li#nav-selected {
+                nav#navigation ul li#nav-selected{
                     margin: 0px 10px;
                     background-color: #CECCCC;
                     flex: 3;
-                    
                 }
 
                 nav#navigation ul li#nav-selected a{
                     color: #0F110C;
-                    
                 }
-                
-
-                    nav#navigation ul li a {
+    
+                    nav#navigation ul li a{
                         display: block;
                         margin: auto;
                         text-decoration: none; 
@@ -183,7 +158,7 @@ header {
                         line-height: 30px; 
                         text-align: center; 
                     }
-                    nav#navigation ul li a:hover {
+                    nav#navigation ul li a:hover{
                         display: block;
                         text-decoration: none; 
                         color: #0F110C; 
@@ -192,13 +167,9 @@ header {
     
         form#universal-search{
             flex: 1;
-
             display: flex;
             justify-content: center;
-
             width: 50%;
-
-        /* border: #991414 1px solid; */
         }
 
             form#universal-search #search{
@@ -207,46 +178,37 @@ header {
                 height: 20px;
             }
 
-            
             form#universal-search fieldset{
                 display: flex;
                 border: 0px;
                 border-radius: 5px;
                 background-color: #6F3C51;
-                
             }
 
-            form#universal-search button {
+            form#universal-search button{
                 display: inline-block;
                 background-color: #6F3C51;
                 color: #FDECEF;
                 padding: 10px 20px;
                 border: none;
                 border-radius: 5px;
-            
                 font-size: 16px;
                 cursor: pointer;
             }
     
-            form#universal-search button:hover {
+            form#universal-search button:hover{
                 background-color: #f079aa; 
-                color: #0F110C;
-                
+                color: #0F110C;  
             }
 
-            
-            
-
-
 /* content of index */
-main {
+main{
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex: 1;
-    
 }
 
 #section-container{
@@ -255,7 +217,6 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
     #link-section{
         background-color: #6F3C51;
@@ -280,7 +241,6 @@ main {
             padding: 4px;
         }
 
-
 #login{
     border-radius: 5px;
     background-color: #9D6381;
@@ -293,10 +253,7 @@ main {
     align-items: center; 
 }       
 
-            
-
 /* create account */
-
 #create-account{
     border-radius: 5px;
     background-color: #9D6381;
@@ -309,9 +266,7 @@ main {
     align-items: center; 
 }     
 
-
 /* artist page */
-
 #form-upload{
     border-radius: 5px;
     background-color: #9D6381;
@@ -335,20 +290,16 @@ main {
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-    
         font-size: 16px;
         cursor: pointer;
     }
 
         #form-upload input.submit-button:hover{
-
             background-color: #f079aa; 
             color: #0F110C;
-        
         }
 
 /* Footer */
-
 footer{
     align-self: center;
     color: #FDECEF;
@@ -356,20 +307,11 @@ footer{
     width: 100%;
     background-color: #9D6381;
     bottom: 0;
-   
     box-sizing: border-box;
-    /* position: relative; */
     text-align: center;
-    
-    
 }
 
-
-
 /* audiolibrary */
-
-
-
 #search-form{
     background-color: #9D6381;
     box-shadow: 0 4px 6px #865069; 
@@ -387,13 +329,11 @@ footer{
         border-radius: 5px;
         border: 1px solid #FDECEF;
         height: 20px;
-        
     }
 
     #search-form label{
         color: #FDECEF;
     }
-
 
     #search-form button{
         display: inline-block;
@@ -402,7 +342,6 @@ footer{
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-    
         font-size: 16px;
         cursor: pointer;
     }
@@ -415,29 +354,25 @@ footer{
         color: #FDECEF;
     }
     
-        #search-form button:hover {
+        #search-form button:hover{
             background-color: #f079aa; 
             color: #0F110C;
-            
         }
     
-
-
 #audio-file-database{
     width: 100%;
     max-width: 100%;
     margin: 30px auto;
     border-spacing: 0 20px;
-    
-
 }
 
-    #audio-file-database th {
+    #audio-file-database th{
         border: 1px solid #0F110C;
         padding: 2px;
         border-radius: 6px;
     }
-    #audio-file-database td {
+
+    #audio-file-database td{
         border: 1px solid #0F110C;
         padding: 2px;
         word-wrap: break-word;
@@ -447,26 +382,17 @@ footer{
         overflow: hidden;
     }
 
-
-
 /* audiopage */
-
-
-section.audio-container {
-    
+section.audio-container{
     background-color: #9D6381; 
     padding: 20px; 
     border-radius: 10px; 
     box-shadow: 0 4px 6px #865069; 
     max-width: 800px; 
     margin: 20px auto; 
-
-    
 }
 
-    
-
-    section.audio-container audio {
+    section.audio-container audio{
         margin: 0 auto 20px; 
         width: 100%; 
         max-width: 600px; 
@@ -474,14 +400,14 @@ section.audio-container {
         display: block; 
     }
 
-        section.audio-container div {
+        section.audio-container div{
             display: grid; 
             grid-template-columns: 1fr 3fr; 
             row-gap: 10px; 
             column-gap: 15px; 
         }
 
-            section.audio-container div h1 {
+            section.audio-container div h1{
                 font-size: 20px; 
                 font-weight: bold; 
                 text-align: right; 
@@ -489,14 +415,13 @@ section.audio-container {
                 margin: 0;
             }
 
-            section.audio-container div p {
+            section.audio-container div p{
                 font-size: 16px; 
                 line-height: 1.5; 
                 color: #0F110C; 
                 text-align: left; 
                 margin: 0;
             }
-
 
 p{
     word-wrap: break-word;
@@ -506,7 +431,7 @@ p{
     overflow: hidden;
 }
 
-#comments-section {
+#comments-section{
     background-color: #9D6381; 
     padding: 20px; 
     border-radius: 10px; 
@@ -515,18 +440,16 @@ p{
     margin: 10px 10px;
 }
 
-
-    #comments-section form {
+    #comments-section form{
         margin-bottom: 20px; 
     }
-
-        #comments-section form p {
+        #comments-section form p{
             font-size: 16px;
             color: #0F110C;
             margin: 10px 0;
         }
 
-        #comments-section label {
+        #comments-section label{
             
             font-size: 16px;
             color: #0F110C;
@@ -534,88 +457,76 @@ p{
             display: block;
         }
 
-        #comments-section textarea {
+        #comments-section textarea{
             width: 85%; 
             padding: 10px; 
             border: 1px solid #FDECEF;
             border-radius: 5px;
-        
             font-size: 14px;
         }
 
-
-        #comments-section img {
+        #comments-section img{
             display: block;
             margin: 10px auto; 
             max-width: 100%;
             height: auto; 
-
         }
 
-        #comments-section input#textBox {
+        #comments-section input#textBox{
             width: 85%; 
             padding: 10px;
             border: 1px solid #FDECEF;
             border-radius: 5px;
             margin-bottom: 10px; 
-            
         }
 
-        #comments-section button {
+        #comments-section button{
             display: inline-block;
             background-color: #6F3C51;
             color: #FDECEF;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-        
             font-size: 16px;
             cursor: pointer;
         }
 
-        #comments-section button:hover {
+        #comments-section button:hover{
             background-color: #f079aa; 
             color: #0F110C;
-            
         }
     
-
-
-#comments {
+#comments{
     margin-top: 20px;
 }
 
-    #comments h1 {
+    #comments h1{
         font-family: 'Arial', sans-serif;
         font-size: 18px;
         color: #0F110C;
         text-align: center;
     }
 
-    #comments p {
+    #comments p{
         font-family: 'Arial', sans-serif;
         font-size: 16px;
         color: #333;
         margin: 10px 0; 
     }
 
-        #comments p strong {
+        #comments p strong{
             font-weight: bold;
         }
 
-        #comments a {
+        #comments a{
             color: #612940;
             text-decoration: none;
             font-weight: bold;
-            
         }
 
         #comments p.admin-delete{
             text-align: right;
         }
-
-        
-
 
 /* admin page */
 #admin-create{
@@ -624,7 +535,7 @@ p{
     justify-content: space-evenly;
     align-items: center;
 }
-    #admin-form{
+    .admin-form{
         border-radius: 5px;
         background-color: #9D6381;
         box-shadow: 0 4px 6px #865069; 
@@ -637,23 +548,20 @@ p{
         width: 30%; 
     }
 
-    #admin-form input.submit-button{
+    .admin-form input.submit-button{
         display: inline-block;
         background-color: #6F3C51;
         color: #FDECEF;
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-    
         font-size: 16px;
         cursor: pointer;
     }
 
-        #admin-form input.submit-button:hover{
-
+        .admin-form input.submit-button:hover{
             background-color: #f079aa; 
             color: #0F110C;
-        
         }
 
 
@@ -663,13 +571,13 @@ p{
     justify-content: space-evenly;
 }
 
-#user-database{
-    width: 40%;
-}
+    #user-database{
+        width: 40%;
+    }
 
-#audio-database{
-    width: 40%;
-}
+    #audio-database{
+        width: 40%;
+    }
 
 
 .scroll{
@@ -681,16 +589,11 @@ p{
     box-shadow: 0 4px 6px #865069; 
     padding: 10px; 
     background-color: #6F3C51; 
-
-
     scrollbar-width: thin; 
     scrollbar-color: #865069 #6F3C51; 
     }
 
-    /* .scroll::-webkit-scrollbar {
-        display: none; 
-    } */
-
+   
 
 
 

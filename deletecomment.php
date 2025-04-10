@@ -3,14 +3,14 @@
 /*******w******** 
     
     Name:Ahleeryan-Joe Ventura
-    Date:2025-03-31
-    Description: Index for first page assignment
+    Date:2025-04-10
+    Description: no validation for delete comment
 
 ****************/
+
 session_start();
+
 require('connect.php');
-
-
 
 // checks login credentials
 require('validateadmin.php');
@@ -23,8 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
     if(!is_numeric($commentid)){
         $errors[] = "id must be a number";
     }
-
-    if (!empty($errors)) {
+    if (!empty($errors)){
         $_SESSION['errors'] = $errors;
         header("Location: invalidinput.php");
         exit;
@@ -39,18 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         $statement->bindValue(':commentid', $commentid, PDO::PARAM_INT);
         $statement->execute();
     }
-
 } 
 else{
     $errors[] = "invalid server request";
     $_SESSION['errors'] = $errors;
+    
     header("Location: invalidinput.php");
     exit;
 }
 
-
-
 // return
 header('Location: ' . $_SERVER['HTTP_REFERER']);
-
 ?>

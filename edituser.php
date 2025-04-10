@@ -3,48 +3,35 @@
 /*******w******** 
     
     Name:Ahleeryan-Joe Ventura
-    Date:2025-03-31
-    Description: Index for first page assignment
+    Date:2025-04-10
+    Description: No errors; edit user complete
 
 ****************/
-
-// what I have to do now is just clean up all the code. 
-// I'm just going to open them all up, and close them once I've completed their refinement
-// sounds good. 
-
 
 session_start();
 
 require('connect.php');
 
-
-// checks login credentials
+// check login credentials
 require('validateadmin.php');
 
-// todo styles for everything now? finally?
-
 // validate get
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-
     $userId = $_GET['id'];
     $errors = [];
 
     if (!is_numeric($userId)){
         $errors[] = "id must be a number";
     }
-    
-    if (!empty($errors)) {
+    if (!empty($errors)){
         $_SESSION['errors'] = $errors;
+
         header("Location: invalidinput.php");
         exit;
     }
     else{
-
         $userId = filter_var($userId, FILTER_SANITIZE_NUMBER_INT);
 
-
-        
         // fetching data from specific row.
         $query = "SELECT * FROM users WHERE id = :id";
         $statement = $db -> prepare($query);
@@ -52,22 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         $statement->execute();
         $userData = $statement -> fetch(PDO::FETCH_ASSOC);
 
-
         // for roles
         $defaultChoice = htmlspecialchars_decode($userData['role']);
-
     }
 }
 
-
-
-
-
-// after post. either delete or edit.
-
-
+// after post, either delete or edit.
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
     // gather data
     $id = $_POST['id'];
     $nameUser = $_POST['nameUser'];
@@ -76,8 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $role = $_POST['role'];
     $command = $_POST['command'];
 
-    
-
     $allowedRoles = ['admin', 'artist', 'employee', 'browser'];
     $allowedCommands = ['Update', 'Delete'];
 
@@ -85,30 +61,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(!is_numeric($id)){
         $errors[] = "id must be a number";
     }
-
     if(empty($nameUser)){
         $errors[] = "Invalid Name: Cannot be empty";
     }
-
     if (!preg_match("/^[a-zA-Z0-9]{3,20}$/", $username)) {
         $errors[] = "Invalid username. Must be 2-20 characters long and contain only letters and numbers (no spaces or special characters).";
     }
-   
     if (strlen($password) < 3) {
         $errors[] = "Password must be at least 3 characters long.";
     }
-    
-   
     if (!in_array($role, $allowedRoles)) {
         $errors[] = "Invalid role. It must be a valid role. (Admin, Employee, Artist, Browser)";
     }
-
     if (!in_array($command, $allowedCommands)){
         $errors[] = "Invalid command.";
     }
-
     if (!empty($errors)) {
         $_SESSION['errors'] = $errors;
+
         header("Location: invalidinput.php");
         exit;
     }
@@ -122,20 +92,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $command = filter_var($command, FILTER_SANITIZE_STRING);
 
-
         // salting and hashing password
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-
         // update or delete
-                
         if($command === 'Update'){
             
             // Updates specific row based on id.
             $query = "UPDATE users SET name = :nameUser, username = :username, password = :password, role = :role WHERE id = :id";
 
-        
-            
             $statement = $db->prepare($query);
 
             $statement->bindValue(':nameUser', $nameUser);
@@ -144,51 +109,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $statement->bindValue(':role', $role);
             $statement->bindValue(':id', $id);
 
-        
             try {
-                if ($statement->execute()) {
+                
+                if ($statement->execute()){
                     echo "Update successful!";
-                } else {
+                } 
+                else{
                     echo "Update failed!";
                 }
-            } catch (PDOException $e) {
+            } 
+            catch (PDOException $e){
                 echo "Error: " . $e->getMessage();
             }
 
-            
-            //echo "confirm update";
             // Return to index when complete.
             header("Location: adminpage.php");
         }
-
-
-        // Elseif Delete command. 
+        // elseif Delete command. 
         elseif($command === 'Delete'){
-            //echo "confirm delete";
-
-            // Deletes from specific row based on id.
             $query = "DELETE FROM users WHERE id = :id";
             $statement = $db->prepare($query);
             $statement->bindValue(':id', $id, PDO::PARAM_INT);
             $statement->execute();
 
-            // Return to index when complete.
+            // return to index when complete.
             header("Location: adminpage.php");
         }
-
-        }
+    }
 }
-
-
-
-
-
-// Checks for Update command.
-
-
-
-
-
 
 ?>
 
@@ -199,17 +147,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Homepage</title>
+    <title>Edit User</title>
 </head>
 <body>
 <div id="page-border">
     <?php include 'header.php' ?>
-
-
     <main>
-    
         <form id="form-upload" action="#" method="post">
-        
             <h2>edit current user</h2>
             <input type="text" id="nameUser" name="nameUser" value="<?= htmlspecialchars_decode($userData['name']); ?>" required> 
             <input type="text" id="username" name="username" value="<?= htmlspecialchars_decode($userData['username']); ?>" required> 
@@ -226,9 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <input class="submit-button" type="submit" name="command" value="Delete">
             </div>
         </form>
-           
     </main>
-
     <?php include 'footer.php' ?>
     </div>
 </body>

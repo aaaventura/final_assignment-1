@@ -3,14 +3,14 @@
 /*******w******** 
     
     Name:Ahleeryan-Joe Ventura
-    Date:2025-03-31
-    Description: Index for first page assignment
+    Date:2025-04-10
+    Description: nothing to validate in employee download
 
 ****************/
+
 session_start();
 
 require('connect.php');
-
 
 // checks login credentials
 $allowedRoles = ['admin', 'employee'];
@@ -20,24 +20,21 @@ validateSessionRole($allowedRoles);
 
 // get id
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-
     $audioId = $_GET['id'];
     $errors = [];
 
     if (!is_numeric($audioId)){
         $errors[] = "id must be a number";
     }
-
-    if (!empty($errors)) {
+    if (!empty($errors)){
         $_SESSION['errors'] = $errors;
+
         header("Location: invalidinput.php");
         exit;
     }
     else{
-
         $audioId = filter_var($audioId, FILTER_SANITIZE_NUMBER_INT);
 
-        
         // fetching data from specific row.
         $query = "SELECT * FROM audio WHERE id = :id";
         $statement = $db -> prepare($query);
@@ -47,8 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 
         $fileLocation = $audioData['fileLocation'];
 
-
-        if (file_exists($fileLocation)) {
+        if (file_exists($fileLocation)){
             // Set headers to force download
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
@@ -62,12 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             flush();
             readfile($fileLocation);
             exit;
-        } else {
-            echo "File not found.";
-        }
+        } 
+        else{
+            $errors[] = "No file Found";
+            $_SESSION['errors'] = $errors;
+
+            header("Location: invalidinput.php");
         }
     }
-
+}
 ?>
 
     

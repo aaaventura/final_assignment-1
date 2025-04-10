@@ -3,8 +3,8 @@
 /*******w******** 
     
     Name:Ahleeryan-Joe Ventura
-    Date:2025-03-31
-    Description: Index for first page assignment
+    Date:2025-04-10
+    Description: footer validated
 
 ****************/
 ?>
