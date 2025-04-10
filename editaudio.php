@@ -213,35 +213,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <main>
     
 
-        <div>
-            <div id="form-container">
-                <p>Edit audio file data</p>
+       
+                <form id="form-upload" action="editaudio.php" method="post">
+                <h1>Edit audio file data</h1>
 
-                <audio controls>
-                            <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
-                            your browser does not support the audio element
-                        </audio>
-                <form action="editaudio.php" method="post">
-                    <label for="title">title</label>
+                    <audio controls>
+                        <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
+                        your browser does not support the audio element
+                    </audio>
+                
+                    <label for="title">Title</label>
                     <input type="text" id="title" name="title" value="<?= htmlspecialchars_decode($audioData['title']); ?>" required> 
-                    <label for="artist">artist</label>
+                    <label for="artist">Artist</label>
                     <input type="text" id="artist" name="artist" value="<?= htmlspecialchars_decode($audioData['artist']); ?>" required> 
-                    <label for="producer">producer</label>
+                    <label for="producer">Producer</label>
                     <input type="text" id="producer" name="producer" value="<?= htmlspecialchars_decode($audioData['producer']); ?>"> 
-                    <label for="creator">creator</label>
+                    <label for="creator">Creator</label>
                     <input type="text" id="creator" name="creator" value="<?= htmlspecialchars_decode($audioData['creator']); ?>"> 
-                    <label for="genre">genre</label>
+                    <label for="genre">Genre</label>
                     <input type="text" id="genre" name="genre" value="<?= htmlspecialchars_decode($audioData['genre']); ?>" required> 
-                    <label for="description">description</label>
+                    <label for="description">Description</label>
                     <textarea id="description" name="description" rows="10" required><?= htmlspecialchars_decode($audioData['description']) ?></textarea>
                     <input type="hidden" name="id" value="<?= $audioData['id']?>">
                     <div>
-                        <input type="submit" name="command" value="Update">
-                        <input type="submit" name="command" value="Delete">
+                        <input class="submit-button" type="submit" name="command" value="Update">
+                        <input class="submit-button" type="submit" name="command" value="Delete">
                     </div>
                 </form>
-            </div>
-        </div>
+            
+        
 
         
         

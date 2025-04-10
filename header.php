@@ -63,12 +63,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <input type="text" id="search" name="search" required> <br>
                 </div>
                 <fieldset>
-                    <input type="radio" name="searchBy" id="title" value="title" checked/> <label for="title">Title</label><br />
+                    <input type="radio" name="searchBy" id="title" value="title" required checked/> <label for="title">Title</label><br />
                     <input type="radio" name="searchBy" id="artist" value="artist" /> <label for="artist">artist</label><br />
                     <input type="radio" name="searchBy" id="genre" value="genre" /> <label for="genre">Genre</label><br />
                 </fieldset>
                 
-                <input type="submit" name="submit">
+                <button type="submit" name="submit">Search</button>
             </form>
         <?php endif; ?>
     </section>

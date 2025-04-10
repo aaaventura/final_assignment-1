@@ -81,8 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <main>
         <h1> Access Denied.</h1>
-        <p> Invalid Login Credentials</p>
-        <p> Please return to the homepage: <a href="index.php">Here</a></p>
+        <p class="black-text"> Invalid Login Credentials</p>
+        <div id="link-section">
+            <a id="link-button" href="index.php">Return Home</a>
+        </div>
 
     </main>
 

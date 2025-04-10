@@ -278,109 +278,146 @@ $usersData = $displayUsersStatement -> fetchAll(PDO::FETCH_ASSOC);
 
 
     <main>
-   
-        <div>
-            <h2>user database</h2>
-            
-                
-            <form action="#" method="post">
-                <label for="name">Create new user</label>
-                <input type="text" name="nameUser" placeholder="name" required>
-                <input type="text" name="username" placeholder="username" required>
-                <input type="text" name="password" placeholder="password" required>
+
+
+        <div id="admin-create">
+
+            <form id="admin-form" action="#" method="post">
+        
+                <h2>Create New User</h2>
+
+                <input type="text" id="nameUser" name="nameUser" placeholder="name" required> 
+                <input type="text" id="username" name="username" placeholder="username" required> 
+                <input type="text" id="password" name="password" placeholder="password" required> 
                 <select id="role" name="role">
                     <option value="admin">Admin</option>
                     <option value="employee">Employee</option>
                     <option value="artist">Artist</option>
                     <option value="browser">Browser</option>
                 </select>
+
                 <button type="submit">Create</button>
             </form>
 
-            <?php if(empty($usersData)): ?>
-                <h1> No files found </h1>
+            
+            <form id="admin-form" action="#" method="post" enctype="multipart/form-data">
+                <h2>Create New Audio File</h2>
+                    <label for="audio">Choose a file to upload:</label>
+                    <input type="file" name="audio" id="audio" accept="audio/*" required>
+                    <input type="text" name="title" placeholder="title" required>
+                    <input type="text" name="artist" placeholder="artist" required>
+                    <input type="text" name="producer" placeholder="producer">
+                    <input type="text" name="creator" placeholder="creator">
+                    <input type="text" name="genre" placeholder="genre" required>
 
-
-            <?php else: ?> 
-
-                <div class="audioFileDatabaseHeader">
-                    <span>ID</span>
-                    <span>Name</span>
-                    <span>Username</span>
-                    <span>Password</span>
-                    <span>Role</span>
-                    <span>Actions</span>
-                </div>
-                <?php foreach($usersData as $user): ?>
-
-                    <ul class="audioFileDatabase">
-                        
-                        <li><?=$user['id'] ?></li>
-                        <li><?=$user['name'] ?></li>
-                        <li><?=$user['username'] ?></li>
-                        <li><?=$user['password'] ?></li>
-                        <li><?=$user['role'] ?></li>
-
-                        <li><a href="edituser.php?id=<?=$user['id']?>">Edit</a></li>
-               
-
-                    </ul>
-                <?php endforeach; ?>
-
-            <?php endif; ?>
+                    <input type="text" name="description" placeholder="description" required>
+                
+                    <button type="submit">Upload</button>
+                    
+                    
+                </form>
         </div>
+   
+
+
+
+        <section id="admin-database">
+            <div id="users-database" class="scroll">
+                <h2>user database</h2>
+
+
+                <?php if(empty($usersData)): ?>
+                    <section class="audio-container">
+                        <h1> No Users Found? </h1>
+                    </section>
+                
+
+                <?php else: ?> 
+
+                    
+                    <?php foreach($usersData as $user): ?>
+
+                        <section class="audio-container">
+                            
+                            <div>
+                        
+                                <h1>Name</h1>
+                                <p><?= htmlspecialchars_decode($user['name']); ?> </p> 
+                                <h1>Username</h1>
+                                <p><?= htmlspecialchars_decode($user['username']); ?></p> 
+                                <h1 >Password</h1>
+                                <p><?= htmlspecialchars_decode($user['password']); ?></p> 
+                                <h1 >Role</h1>
+                                <p><?= htmlspecialchars_decode($user['role']); ?></p> 
+                                
+                        
+                                <a href="edituser.php?id=<?=$user['id']?>">EDIT</a>
+                                
+                            </div>
+                        </section>
+
+                
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+            </div>
+
+
+            <div id="audio-database" class="scroll">
+                <h2>audio database</h2>
+                
+                <?php if(empty($audioFilesData)): ?>
+                    <section class="audio-container">
+                        <h1> No files found </h1>
+                    </section>
+                    
+
+
+                <?php else: ?> 
+                    <?php foreach($audioFilesData as $audioData): ?>
+
+
+                        <section class="audio-container">
+                            <audio controls>
+                                        <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
+                                        your browser does not support the audio element
+                                    </audio>
+                            <div>
+                                <h1>Title</h1>
+                                
+                                <p><a href="audiopage.php?id=<?=$audioData['id']?>"><?= htmlspecialchars_decode($audioData['title']); ?> </a></p> 
+                                <h1>Artist</h1>
+                                <p><?= htmlspecialchars_decode($audioData['artist']); ?> </p> 
+                                <h1>Producer</h1>
+                                <p><?= htmlspecialchars_decode($audioData['producer']); ?></p> 
+                                <h1 >Creator</h1>
+                                <p><?= htmlspecialchars_decode($audioData['creator']); ?></p> 
+                                <h1 >Genre</h1>
+                                <p><?= htmlspecialchars_decode($audioData['genre']); ?></p> 
+                                <h1 >Description</h1>
+                                <p><?= htmlspecialchars_decode($audioData['description']) ?></p>
+
+                            
+                                <a href="editaudio.php?id=<?=$audioData['id']?>">EDIT</a>
+                                
+                            </div>
+                        </section>
+
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+
+            </div>
+        
+        </section>
+
+
+
+
+
 
         <div>
-            <h2>audio database</h2>
-            <form action="#" method="post" enctype="multipart/form-data">
-                <label for="audio">Choose a file to upload:</label>
-                <input type="file" name="audio" id="audio" accept="audio/*" required>
-                <input type="text" name="title" placeholder="title" required>
-                <input type="text" name="artist" placeholder="artist" required>
-                <input type="text" name="producer" placeholder="producer">
-                <input type="text" name="creator" placeholder="creator">
-                <input type="text" name="genre" placeholder="genre" required>
-                <input type="text" name="description" placeholder="description" required>
-                <button type="submit">Upload</button>
-            </form>
-            <!-- this is where I'll put a php loop or something liek that, y'know?-->
-            <?php if(empty($audioFilesData)): ?>
-                <h1> No files found </h1>
-
-
-            <?php else: ?> 
-
-                <div class="audioFileDatabaseHeader">
-                    <span>Audio</span>
-                    <span>ID</span>
-                    <span>Title</span>
-                    <span>Artist</span>
-                    <span>Producer</span>
-                    <span>Creator</span>
-                    <span>Genre</span>
-                    <span>Description</span>
-                    <span>Action</span>
-                </div>
-                <?php foreach($audioFilesData as $audioData): ?>
-
-                    <ul class="audioFileDatabase">
-                        <audio controls>
-                            <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
-                            your browser does not support the audio element
-                        </audio>
-                        <li><?=$audioData['id'] ?></li>
-                        <li><a href="audiopage.php?id=<?=$audioData['id']?>"><?=$audioData['title'] ?></a></li>
-                        <li><?=$audioData['artist'] ?></li>
-                        <li><?=$audioData['producer'] ?></li>
-                        <li><?=$audioData['creator'] ?></li>
-                        <li><?=$audioData['genre'] ?></li>
-                        <li><?=$audioData['description'] ?></li>
-                        <li><a href="editaudio.php?id=<?=$audioData['id']?>">Edit</a></li>
-
-                    </ul>
-                <?php endforeach; ?>
-
-            <?php endif; ?>
+            
             
         </div>
         

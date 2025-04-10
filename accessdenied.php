@@ -28,9 +28,13 @@ session_start();
 
 
     <main>
-        <h1> Acess Denied.</h1>
-        <p> You do not have access to enter this page.</p>
-        <p> Please return to the homepage: <a href="index.php">Here</a></p>
+        <h1> Access Denied.</h1>
+        <p class="black-text"> You do not have permission to access this page.</p>
+    
+        <div id="link-section">
+            <a id="link-button" href="index.php">Return Home</a>
+        </div>
+        
 
     </main>
 

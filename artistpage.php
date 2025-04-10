@@ -163,23 +163,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <main>
    
 
-        <div>
-            <h2>Upload Your File</h2>
-            <form action="#" method="post" enctype="multipart/form-data">
+        
+            
+            <form id="form-upload" action="#" method="post" enctype="multipart/form-data">
+
+                <h2>Upload Your File</h2>
+
                 <label for="audio">Choose a file to upload:</label>
                 <input type="file" name="audio" id="audio" accept="audio/*" required>
-                <input type="text" name="title" placeholder="title" required>
-                <input type="text" name="artist" placeholder="artist" value="<?= $_SESSION['name'] ?>">
-                <input type="text" name="producer" placeholder="producer">
-                <input type="text" name="creator" placeholder="creator">
-                <input type="text" name="genre" placeholder="genre" required>
-                <input type="text" name="description" placeholder="description" required>
+
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" placeholder="title" required>
+
+                <label for="artist">Artist</label>
+                <input type="text" name="artist" id="artist" placeholder="artist" value="<?= $_SESSION['name'] ?>">
+
+                <label for="producer">Producer</label>
+                <input type="text" name="producer" id="producer" placeholder="producer">
+
+                <label for="creator">Creator</label>
+                <input type="text" name="creator" id="creator" placeholder="creator">
+
+                <label for="genre">Genre</label>
+                <input type="text" name="genre" id="genre" placeholder="genre" required>
+
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="10" placeholder="description" required></textarea>
+                
+
                 <button type="submit">Upload</button>
             </form>
 
         
             
-        </div>
+        
         
 
     </main>

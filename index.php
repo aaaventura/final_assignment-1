@@ -40,34 +40,40 @@ if(isset($_SESSION['name'])){
 
         
         <main>
-            <?php if(isset($sessionName)): ?>
+           
+                <?php if(isset($sessionName)): ?>
 
-                <section id="section-container">
-                    <p>You are logged in as: <?= $sessionName?></p>
-                    <div id="log-out">
-                        <a id="link-button" href="logout.php">log out</a>
-                    </div>
+                    <section id="section-container">
+                        <p class="black-text">You are logged in!</p>
+                        <div id="link-section">
+                            <a id="link-button" href="logout.php">Log Out</a>
+                        </div>
+                        
+                    </section>
                     
-                </section>
-                
 
-            <?php else:?>
+                <?php else:?>
+            
+            
                 
                 <form id="login"action="login.php" method="POST">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
+                    <h2>Please Log in</h2>
+                    <input class="text-input" id="username-input" type="text" name="username" placeholder="Username" required>
+                    <input class="text-input" id="password-input" type="password" name="password" placeholder="Password" required>
 
-                <img src="generatecaptcha.php" alt="Captcha Image">
-                <input id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
+                    <img id="captcha-image" src="generatecaptcha.php" alt="Captcha Image">
+                    <input class="text-input" id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
 
-                <button type="submit">Login</button>
-            </form>
+                    <button type="submit">Login</button>
+                </form>
 
-
-            <div>
+            <section id="section-container">
                 <p>No account?</p>
-                <p><a href="createaccount.php">Create Account</a></p>
-            </div>
+                <div id="link-section">
+                    <a id="link-button" href="createaccount.php">Create Account</a>
+                </div>
+            </section>
+            
 
             <?php endif; ?>
 

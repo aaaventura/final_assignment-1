@@ -122,102 +122,99 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Homepage</title>
 </head>
 <body>
-<div id="page-border">
-    <?php include 'header.php' ?>
+    <div id="page-border">
+        <?php include 'header.php' ?>
+
+        <main>
+
+            <h1>Audio Library</h1>
 
 
-    <main>
-   
-        <div>
-            <p>Audio Library</p>
-            <form method="POST">
-            <label for="search">Search Database</label>
-            <input type="text" id="search" name="search" required> <br>
-            <input type="radio" name="searchBy" id="title" value="title" checked/> <label for="title">Title</label><br />
-            <input type="radio" name="searchBy" id="artist" value="artist" /> <label for="artist">artist</label><br />
-            <input type="radio" name="searchBy" id="genre" value="genre" /> <label for="genre">Genre</label><br />
-            <input type="submit" name="submit">
-            </form>
-            <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
-                <p><a href="audiolibrary.php">Reset Search</a></p>
-            <?php endif; ?>
-        </div>
-
-
-        <div>
-
-    <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
-
-
-        <p>Search: <?= isset($search) ? $search : "nothing" ?></p>
-        <p>Search By: <?= isset($searchBy) ? $searchBy : "nothing" ?></p>
-
-
-
-        <?php if(empty($audioFilesData)): ?>
-            <h1> No files found </h1>
-        <?php endif; ?>
-
-
-    <?php endif; ?>
-
-    <?php if(!empty($audioFilesData)): ?>
-
-        <div class="audioFileDatabaseHeader">
-
-
-            <span>Audio</span>
-            <span>ID</span>
-            <span>Title</span>
-            <span>Artist</span>
-            <span>Producer</span>
-            <span>Creator</span>
-            <span>Genre</span>
-            <span>Description</span>
-
+                <form id="search-form" method="POST">
+                    <label for="search">Search Database</label>
+                    <input type="text" id="search" name="search" required> 
+                    <fieldset>
+                        <input type="radio" name="searchBy" id="title" value="title" checked required/> <label for="title">Title</label>
+                        <input type="radio" name="searchBy" id="artist" value="artist" /> <label for="artist">artist</label>
+                        <input type="radio" name="searchBy" id="genre" value="genre" /> <label for="genre">Genre</label>
+                    </fieldset>
+                    
+                    <button type="submit" name="submit">Search</button>
+                </form>
+               
             
-            <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ): ?>
-                <span>Actions</span>
-            <?php endif; ?>
-
-        </div>
 
 
-        <?php foreach($audioFilesData as $audioData): ?>
-            <ul class="audioFileDatabase">
+            <div id="audio-container">
 
+                <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
+                    
+                    <div id="link-section">
+                        <a id="link-button" href="audiolibrary.php">Reset Search</a>
+                    </div>
 
-                <audio controls>
-                    <source src="<?=$audioData['fileLocation']?>" type="<?php fileExtension($audioData['fileLocation'])?>">
-                    Your browser does not support the audio element.
-                </audio>
-
-
-                <li><?=$audioData['id']?></li>
-                <li><a href="audiopage.php?id=<?=$audioData['id']?>"><?=$audioData['title']?></a></li>
-                <li><?=$audioData['artist']?></li>
-                <li><?=$audioData['producer']?></li>
-                <li><?=$audioData['creator']?></li>
-                <li><?=$audioData['genre']?></li>
-                <li><?=$audioData['description']?></li>
-
-
-
-                <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ): ?>
-                    <li><a href="employeedownload.php?id=<?=$audioData['id']?>">DOWNLOAD</a></li>
                 <?php endif; ?>
 
-            </ul>
 
-        <?php endforeach; ?>
+                <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
 
-    <?php endif; ?>
 
-</div>
-        
+                    <div id="search-elements">
+                        <p>Search: <?= isset($search) ? $search : "nothing" ?></p>
+                        <p>Search By: <?= isset($searchBy) ? $searchBy : "nothing" ?></p>
+                    </div>
+                    
 
-    </main>
-    <?php include 'footer.php' ?>
+
+
+                    <?php if(empty($audioFilesData)): ?>
+                        <h1> No files found </h1>
+                    <?php endif; ?>
+
+
+                <?php endif; ?>
+
+                <?php if(!empty($audioFilesData)): ?>
+
+                    <?php foreach($audioFilesData as $audioData): ?>
+
+                        <section class="audio-container">
+                            <audio controls>
+                                        <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
+                                        your browser does not support the audio element
+                                    </audio>
+                            <div>
+                                <h1>Title</h1>
+                                
+                                <p><a href="audiopage.php?id=<?=$audioData['id']?>"><?= htmlspecialchars_decode($audioData['title']); ?> </a></p> 
+                                <h1>Artist</h1>
+                                <p><?= htmlspecialchars_decode($audioData['artist']); ?> </p> 
+                                <h1>Producer</h1>
+                                <p><?= htmlspecialchars_decode($audioData['producer']); ?></p> 
+                                <h1 >Creator</h1>
+                                <p><?= htmlspecialchars_decode($audioData['creator']); ?></p> 
+                                <h1 >Genre</h1>
+                                <p><?= htmlspecialchars_decode($audioData['genre']); ?></p> 
+                                <h1 >Description</h1>
+                                <p><?= htmlspecialchars_decode($audioData['description']) ?></p>
+
+                                <?php if($_SESSION['role'] === "employee" || $_SESSION['role'] === "admin" ): ?>
+                                    <a href="employeedownload.php?id=<?=$audioData['id']?>">DOWNLOAD</a>
+                                <?php endif; ?>
+                            </div>
+                        </section>
+
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+
+            </div>
+            
+
+        </main>
+
+
+        <?php include 'footer.php' ?>
     </div>
 </body>
 </html>

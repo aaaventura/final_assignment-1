@@ -33,14 +33,27 @@ if(isset($_SESSION['errors'])){
 
 
     <main>
+    
+    <section id="section-container">
         <h1> Invalid Input. </h1>
+
         <ul>
-        <?php foreach ($errors as $error): ?>
-            <li> <?= $error ?></li> 
-        <?php endforeach; ?>
+            <?php foreach ($errors as $error): ?>
+                <li> <?= $error ?></li> 
+            <?php endforeach; ?>
         </ul>
+
+
+        <div id="link-section">
+            <a id="link-button" href="index.php">Return Home</a>
+        </div>
+    </section>
+
+
         
-        <p> Return to Home: <a href="index.php">Here</a></p>
+        
+        
+    
 
     </main>
 

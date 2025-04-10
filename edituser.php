@@ -202,30 +202,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     <main>
     
-
-        <div>
-            <div id="form-container">
-                <p>Edit audio file data</p>
-
-                <form action="#" method="post">
-                <label for="name">edit current user</label>
-                <input type="text" id="nameUser" name="nameUser" value="<?= htmlspecialchars_decode($userData['name']); ?>"> 
-                <input type="text" id="username" name="username" value="<?= htmlspecialchars_decode($userData['username']); ?>"> 
-                <input type="text" id="password" name="password" value="<?= htmlspecialchars_decode($userData['password']); ?>"> 
-                <select id="role" name="role">
-                    <option value="admin" <?php echo ($defaultChoice == "admin") ? "selected" : "";?>>  Admin</option>
-                    <option value="employee" <?php echo ($defaultChoice == "employee") ? "selected" : "";?>>Employee</option>
-                    <option value="artist" <?php echo ($defaultChoice == "artist") ? "selected" : "";?>>Artist</option>
-                    <option value="browser" <?php echo ($defaultChoice == "browser") ? "selected" : "";?>>Browser</option>
-                </select>
-                <input type="hidden" name="id" value="<?= $userData['id']?>">
-                <div>
-                        <input type="submit" name="command" value="Update">
-                        <input type="submit" name="command" value="Delete">
-                    </div>
-                </form>
+        <form id="form-upload" action="#" method="post">
+        
+            <h2>edit current user</h2>
+            <input type="text" id="nameUser" name="nameUser" value="<?= htmlspecialchars_decode($userData['name']); ?>" required> 
+            <input type="text" id="username" name="username" value="<?= htmlspecialchars_decode($userData['username']); ?>" required> 
+            <input type="text" id="password" name="password" value="" required> 
+            <select id="role" name="role">
+                <option value="admin" <?php echo ($defaultChoice == "admin") ? "selected" : "";?>>  Admin</option>
+                <option value="employee" <?php echo ($defaultChoice == "employee") ? "selected" : "";?>>Employee</option>
+                <option value="artist" <?php echo ($defaultChoice == "artist") ? "selected" : "";?>>Artist</option>
+                <option value="browser" <?php echo ($defaultChoice == "browser") ? "selected" : "";?>>Browser</option>
+            </select>
+            <input type="hidden" name="id" value="<?= $userData['id']?>">
+            <div>
+                <input class="submit-button" type="submit" name="command" value="Update">
+                <input class="submit-button" type="submit" name="command" value="Delete">
             </div>
-        </div>
+        </form>
+           
     </main>
 
     <?php include 'footer.php' ?>

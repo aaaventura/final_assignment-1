@@ -108,92 +108,103 @@ if (isset($_SESSION['comment'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Homepage</title>
-    <script src="captcha.js"></script>
+    
 </head>
 <body>
-<div id="page-border">
-    <?php include 'header.php' ?>
+    <div id="page-border">
+        <?php include 'header.php' ?>
 
 
-    <main>
-    
+        <main>
+        
 
-        <div>
-            <div id="form-container">
+            
+            <section class="audio-container">
                 <audio controls>
                             <source src="<?=$audioData['fileLocation'] ?>" type="<?php fileExtension($audioData['fileLocation'])?>">
                             your browser does not support the audio element
                         </audio>
                 <div>
-                    <h1 >title</h1>
+                    <h1 >Title</h1>
                     <p><?= htmlspecialchars_decode($audioData['title']); ?> </p> 
-                    <h1>artist</h1>
+                    <h1>Artist</h1>
                     <p><?= htmlspecialchars_decode($audioData['artist']); ?> </p> 
-                    <h1>producer</h1>
+                    <h1>Producer</h1>
                     <p><?= htmlspecialchars_decode($audioData['producer']); ?></p> 
-                    <h1 >creator</h1>
+                    <h1 >Creator</h1>
                     <p><?= htmlspecialchars_decode($audioData['creator']); ?></p> 
-                    <h1 >genre</h1>
+                    <h1 >Genre</h1>
                     <p><?= htmlspecialchars_decode($audioData['genre']); ?></p> 
-                    <h1 >description</h1>
+                    <h1 >Description</h1>
                     <p><?= htmlspecialchars_decode($audioData['description']) ?></p>
                     
                 </div>
-            </div>
-        </div>
-
-
-        <div id="comments-section">
-
-            <form action="postcomment.php" method="post">
-        
-                <p>User: <?= $_SESSION['username']?></p>
-                <input type="hidden" name="audioid" value="<?= $audioData['id'] ?>">
-    
-                <label for="comment">Comment:</label>
-                <textarea id="comment" name="comment" rows="4" cols="50" required><?= $oldComment ?? null ?></textarea>
+            </section>
             
-                <?php if (!empty($oldComment)): ?>
-                    <p >Captcha filled out incorrectly. Please try again.</p>
-                <?php endif; ?>
+
+
+
+
+
+
+
+
+
+            <section id="comments-section">
+
+                <form action="postcomment.php" method="post">
+                    <h1>Comment</h1>
+            
+                    <h2>User: <?= $_SESSION['username']?></h2>
+                    <input type="hidden" name="audioid" value="<?= $audioData['id'] ?>">
+        
+                    
+                    <textarea id="comment" name="comment" rows="4" cols="50" required><?= $oldComment ?? null ?></textarea>
                 
-                <img src="generatecaptcha.php" alt="Captcha Image">
-                <input id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
+                    <?php if (!empty($oldComment)): ?>
+                        <p >Captcha filled out incorrectly. Please try again.</p>
+                    <?php endif; ?>
+                    
+                    <img src="generatecaptcha.php" alt="Captcha Image">
+                    <input id="textBox" type="text" name="textBox" placeholder="Enter CAPTCHA" required>
 
-                <button type="submit">Post Comment</button>
-            </form>
-        </div>
+                    <button type="submit">Post Comment</button>
+                </form>
 
-        <div id="comments">
+                <div id="comments">
 
-        <?php if(empty($commentposts)): ?> 
-            <h1>no comments yet.</h1>
+                    <?php if(empty($commentposts)): ?> 
+                        <h1>no comments yet.</h1>
 
-        <?php else: ?>
-            <?php foreach($commentposts as $comment): ?>
-
-
-                <p><strong>Username:</strong> <?= $comment['username'] ?></p>
-                <p><strong>Comment:</strong> <?= $comment['comment'] ?></p>
-                <p><strong>Date:</strong> <?= $comment['timestamp'] ?></p>
+                    <?php else: ?>
+                        <?php foreach($commentposts as $comment): ?>
 
 
-                <?php if($_SESSION['role'] === 'admin'): ?>
-                    <p><a href="deletecomment.php?commentid=<?= $comment['commentid']?>">delete</a></p>
+                            <p><strong>Username:</strong> <?= $comment['username'] ?></p>
+                            <p><strong>Date:</strong> <?= $comment['timestamp'] ?></p>
+                            <p><strong>Comment:</strong> <?= $comment['comment'] ?></p>
+                            
 
-                <?php endif; ?>
+
+                            <?php if($_SESSION['role'] === 'admin'): ?>
+                                <p class="admin-delete"><a href="deletecomment.php?commentid=<?= $comment['commentid']?>">delete</a></p>
+
+                            <?php endif; ?>
+                        
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
+                </div>
+
+            </section>
+
+
             
+            
+        </main>
 
-            <?php endforeach; ?>
-
-        <?php endif; ?>
-        </div>
-
-        
-        
-    </main>
-
-    <?php include 'footer.php' ?>
+        <?php include 'footer.php' ?>
     </div>
 </body>
 </html>
